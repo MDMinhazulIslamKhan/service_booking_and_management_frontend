@@ -1,16 +1,15 @@
 import { authKey } from "@/constants/storageKey";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types/common";
-
 import { getFromLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
 
-const instance = axios.create();
-instance.defaults.headers.post["Content-Type"] = "application/json";
-instance.defaults.headers["Accept"] = "application/json";
-instance.defaults.timeout = 60000;
+const axiosInstance = axios.create();
+axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
+axiosInstance.defaults.headers["Accept"] = "application/json";
+axiosInstance.defaults.timeout = 60000;
 
 // Add a request interceptor
-instance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const accessToken = getFromLocalStorage(authKey);
@@ -26,7 +25,7 @@ instance.interceptors.request.use(
 );
 
 // Add a response interceptor
-instance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   //@ts-ignore
   function (response) {
     const responseObject: ResponseSuccessType = {
@@ -35,19 +34,16 @@ instance.interceptors.response.use(
     };
     return responseObject;
   },
-  async function (error) {
-    if (error?.response?.status === 403) {
-    } else {
-      const responseObject: IGenericErrorResponse = {
-        statusCode: error?.response?.data?.statusCode || 500,
-        message: error?.response?.data?.message || "Something went wrong",
-        errorMessages: error?.response?.data?.message,
-      };
-      return responseObject;
-    }
+  function (error) {
+    const responseObject: IGenericErrorResponse = {
+      statusCode: error?.response?.data?.statusCode || 500,
+      message:
+        error?.response?.data?.message || "Something going wrong from me.",
+      errorMessages: error?.response?.data?.errorMessages,
+    };
+    return responseObject;
 
     // return Promise.reject(error);
   }
 );
-
-export { instance };
+export { axiosInstance };

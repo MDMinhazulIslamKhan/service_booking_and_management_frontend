@@ -1,28 +1,19 @@
-import { baseApi } from "./baseApi";
 import { tagTypes } from "../tag-types";
+import { baseApi } from "./baseApi";
 
-const ADMIN_URL = "/admins";
-const AUTH_URL = "/auth";
+const USER_URL = "/user";
 
-export const adminApi = baseApi.injectEndpoints({
+export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     userLogin: build.mutation({
       query: (loginData) => ({
-        url: `${AUTH_URL}/login`,
+        url: `${USER_URL}/login`,
         method: "POST",
         data: loginData,
       }),
       invalidatesTags: [tagTypes.user],
     }),
-
-    deleteAdmin: build.mutation({
-      query: (id) => ({
-        url: `${ADMIN_URL}/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: [tagTypes.admin],
-    }),
   }),
 });
 
-export const { useDeleteAdminMutation, useUserLoginMutation } = adminApi;
+export const { useUserLoginMutation } = userApi;
