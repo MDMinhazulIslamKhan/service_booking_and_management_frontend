@@ -27,13 +27,17 @@ const TutorLogin = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
-      storeUserInfo({ accessToken: res?.data?.accessToken });
+      console.log(res?.data?.accessToken);
       if (res?.data?.accessToken) {
-        router.push("/profile/tutor");
-        message.success("Tutor logged in successfully!");
+        storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.push("/tutor/profile");
+        message.success("User logged in successfully!");
+      } else {
+        message.error(res.message);
       }
     } catch (error) {
-      console.log(error);
+      message.error("Something went wrong");
+      router.push("/home");
     }
   };
   return (
@@ -120,11 +124,34 @@ const TutorLogin = () => {
       </Row>
       <h4 style={{ textAlign: "center", color: "black", marginTop: "30px" }}>
         Are you a user?
-        <Link href="/login" style={{ textDecoration: "none" }}>
+        <Link
+          href="/login"
+          style={{ textDecoration: "none", color: "#0958d9" }}
+        >
           {" "}
           User Login
         </Link>
       </h4>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <Button
+          style={{
+            backgroundColor: "#fffbbd",
+            color: "#80743c",
+            margin: "20px auto",
+          }}
+        >
+          <Link
+            href="/home"
+            style={{ textDecoration: "none", fontWeight: "bold" }}
+          >
+            Go To Home
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 };

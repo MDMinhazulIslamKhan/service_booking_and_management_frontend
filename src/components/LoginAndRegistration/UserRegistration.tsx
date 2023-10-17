@@ -8,32 +8,32 @@ import Form from "@/components/Forms/Form";
 import { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { loginSchema } from "@/schemas/login";
-import { useUserLoginMutation } from "@/redux/api/userApi";
-import { isLoggedIn, storeUserInfo } from "@/services/auth.service";
+import { registrationSchema } from "@/schemas/login";
+import { useUserRegistrationMutation } from "@/redux/api/userApi";
+import { isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 
 type FormValues = {
   email: string;
   password: string;
+  fullName: string;
+  phoneNumber: string;
 };
 
-const Login = () => {
+const UserRegistration = () => {
   const router = useRouter();
   if (isLoggedIn()) {
     router.push("/home");
   }
-  const [userLogin] = useUserLoginMutation(undefined);
+  const [userRegistration] = useUserRegistrationMutation(undefined);
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
-      const res = await userLogin({ ...data }).unwrap();
-      console.log(res?.data?.accessToken);
-      if (res?.data?.accessToken) {
-        storeUserInfo({ accessToken: res?.data?.accessToken });
-        router.push("/user/profile");
-        message.success("User logged in successfully!");
-      } else {
+      const res = await userRegistration({ ...data }).unwrap();
+      if (res.statusCode === 500) {
         message.error(res.message);
+      } else {
+        message.success("User registration successfully!!! Please login...");
+        router.push("/login");
       }
     } catch (error) {
       message.error("Something went wrong");
@@ -70,10 +70,31 @@ const Login = () => {
               textAlign: "center",
             }}
           >
-            Login your account
+            User Registration
           </h1>
           <div style={{ margin: "0 20px" }}>
-            <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
+            <Form
+              submitHandler={onSubmit}
+              resolver={yupResolver(registrationSchema)}
+            >
+              <div>
+                <FormInput
+                  name="fullName"
+                  type="text"
+                  size="large"
+                  label="Full Name"
+                  required
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="phoneNumber"
+                  type="text"
+                  size="large"
+                  label="Phone Number"
+                  required
+                />
+              </div>
               <div>
                 <FormInput
                   name="email"
@@ -110,26 +131,26 @@ const Login = () => {
                   type="primary"
                   htmlType="submit"
                 >
-                  Login
+                  Registration
                 </Button>
               </div>
             </Form>
           </div>
 
           <h4 style={{ marginTop: "30px", textAlign: "center" }}>
-            New to My Tutor?
-            <Link href="/registration"> Registration</Link>
+            Already have an account?
+            <Link href="/login"> Please Login</Link>
           </h4>
         </Col>
       </Row>
       <h4 style={{ textAlign: "center", color: "black", marginTop: "30px" }}>
         Are you a tutor?
         <Link
-          href="/login-tutor"
+          href="/registration-tutor"
           style={{ textDecoration: "none", color: "#0958d9" }}
         >
           {" "}
-          Tutor Login
+          Tutor Registration
         </Link>
       </h4>{" "}
       <div
@@ -156,4 +177,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default UserRegistration;

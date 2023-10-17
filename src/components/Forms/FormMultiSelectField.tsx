@@ -16,6 +16,7 @@ type SelectFieldProps = {
   placeholder?: string;
   label?: string;
   defaultValue?: SelectOptions;
+  required?: boolean;
 };
 
 const FormMultiSelectField = ({
@@ -26,11 +27,21 @@ const FormMultiSelectField = ({
   options,
   label,
   defaultValue,
+  required,
 }: SelectFieldProps) => {
   const { control } = useFormContext();
 
   return (
     <>
+      {required ? (
+        <span
+          style={{
+            color: "red",
+          }}
+        >
+          *
+        </span>
+      ) : null}
       {label ? label : null}
       <Controller
         control={control}

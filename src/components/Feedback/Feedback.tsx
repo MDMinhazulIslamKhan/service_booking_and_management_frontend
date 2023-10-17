@@ -17,7 +17,7 @@ const Feedback = () => {
       align="middle"
       gutter={[10, 24]}
     >
-      {data?.data?.map((singleFeedback: any, index: number) => (
+      {data?.data?.data?.map((singleFeedback: any, index: number) => (
         <Col key={index} sm={12} md={6} lg={4} className="gutter-row">
           <Card
             hoverable

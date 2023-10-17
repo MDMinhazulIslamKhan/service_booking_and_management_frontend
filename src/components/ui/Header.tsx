@@ -27,11 +27,11 @@ const Header = () => {
     removeUserInfo(authKey);
     router.push("/login");
   };
+  const { role } = getUserInfo() as any;
 
   const goTo = () => {
     role == "user" ? router.push("/booking") : router.push("/offer");
   };
-  const { role } = getUserInfo() as any;
 
   let items: MenuProps["items"] =
     role == "user"

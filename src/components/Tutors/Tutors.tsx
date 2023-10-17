@@ -4,11 +4,11 @@ import { Button, Card, Col, Row } from "antd";
 import Image from "next/image";
 import maleTeacher from "../../assets/maleTeacher.png";
 import femaleTeacher from "../../assets/femaleTeacher.png";
-import { useAllTutorsBuUserQuery } from "@/redux/api/tutorApi";
+import { useAllTutorsByUserQuery } from "@/redux/api/tutorApi";
 import Link from "next/link";
 
 const AllTutors = () => {
-  const { data, isLoading } = useAllTutorsBuUserQuery({ page: 1, size: 10 });
+  const { data, isLoading } = useAllTutorsByUserQuery({ page: 1, size: 10 });
 
   return (
     <Row
@@ -16,7 +16,7 @@ const AllTutors = () => {
       style={{ backgroundColor: "white", padding: "20px 30px 20px 20px" }}
       align="middle"
     >
-      {data?.data?.map((singleData: any, index: number) => (
+      {data?.data?.data?.map((singleData: any, index: number) => (
         <Col key={index} xs={15} sm={10} md={8} lg={6}>
           <Card
             hoverable
@@ -86,7 +86,7 @@ const AllTutors = () => {
           </Card>
         </Col>
       ))}
-      {data?.data?.map((singleData: any, index: number) => (
+      {data?.data?.data?.map((singleData: any, index: number) => (
         <Col key={index} xs={15} md={8} lg={6}>
           <Card
             hoverable
@@ -156,7 +156,7 @@ const AllTutors = () => {
           </Card>
         </Col>
       ))}
-      {data?.data?.map((singleData: any, index: number) => (
+      {data?.data?.data?.map((singleData: any, index: number) => (
         <Col key={index} xs={15} sm={10} md={8} lg={6}>
           <Card
             hoverable
@@ -226,7 +226,7 @@ const AllTutors = () => {
           </Card>
         </Col>
       ))}
-      {data?.data?.map((singleData: any, index: number) => (
+      {data?.data?.data?.map((singleData: any, index: number) => (
         <Col key={index} xs={15} sm={10} md={8} lg={6}>
           <Card
             hoverable
