@@ -185,11 +185,10 @@ const Booking = ({ params }: { params: { id: string } }) => {
               setOpen(false);
             } else {
               message.success("Booking successfully done!!!");
-              router.push(`/tutor/${params.id}`);
+              router.push("/user/booking");
             }
           } catch (error) {
             message.error("Something went wrong");
-            router.push(`/tutor/${params.id}`);
           }
         }}
       >
