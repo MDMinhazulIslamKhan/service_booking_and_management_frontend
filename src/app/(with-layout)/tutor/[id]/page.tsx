@@ -3,7 +3,7 @@
 import React from "react";
 import maleTeacher from "../../../../assets/maleTeacher.png";
 import femaleTeacher from "../../../../assets/femaleTeacher.png";
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Empty, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useSingleTutorByUserQuery } from "@/redux/api/tutorApi";
@@ -37,7 +37,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
             >
               <Image
                 style={{ width: "100%" }}
-                src={data?.gender == "male" ? maleTeacher : femaleTeacher}
+                src={data?.data?.gender == "male" ? maleTeacher : femaleTeacher}
                 width={300}
                 alt="login image"
               />
@@ -57,41 +57,41 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                   backgroundColor: "white",
                 }}
               >
-                Full Name : {data?.fullName}
+                Full Name : {data?.data?.fullName}
               </h4>
               <Row>
                 <Col style={{ marginBottom: "20px" }} md={12}>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Gender:</span>{" "}
-                    {data?.gender}
+                    {data?.data?.gender}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Qualification:</span>{" "}
-                    {data?.qualification}
+                    {data?.data?.qualification}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Institution:</span>{" "}
-                    {data?.institution}
+                    {data?.data?.institution}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Group:</span>{" "}
-                    {data?.group}
+                    {data?.data?.group}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Subject:</span>{" "}
-                    {data?.subject}
+                    {data?.data?.subject}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Medium:</span>{" "}
-                    {data?.medium}
+                    {data?.data?.medium}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Present Address:</span>{" "}
-                    {data?.presentAddress}
+                    {data?.data?.presentAddress}
                   </p>{" "}
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Current Status:</span>{" "}
-                    {data?.currentStatus}
+                    {data?.data?.currentStatus}
                   </p>
                 </Col>
                 <Col md={12}>
@@ -99,7 +99,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                     <p style={{ fontWeight: "bold", display: "inline" }}>
                       Expert In:
                     </p>
-                    {data?.expertIn?.map((ex: any, index: number) => (
+                    {data?.data?.expertIn?.map((ex: any, index: number) => (
                       <span
                         style={{ marginLeft: "15px", color: "gray" }}
                         key={index}
@@ -110,37 +110,37 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                   </div>{" "}
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Preferred Class:</span>{" "}
-                    {data?.preferredArea}
+                    {data?.data?.preferredArea}
                   </p>{" "}
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>
                       Preferred Medium:
                     </span>{" "}
-                    {data?.preferredMedium}
+                    {data?.data?.preferredMedium}
                   </p>{" "}
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>
                       Preferred Subject:
                     </span>{" "}
-                    {data?.preferredSubject}
+                    {data?.data?.preferredSubject}
                   </p>{" "}
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Preferred Area:</span>{" "}
-                    {data?.preferredClass}
+                    {data?.data?.preferredClass}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Day Per Week:</span>{" "}
-                    {data?.dayPerWeek}
+                    {data?.data?.dayPerWeek}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>
                       Expected Minimum Salary:
                     </span>{" "}
-                    {data?.expectedMinSalary}
+                    {data?.data?.expectedMinSalary}
                   </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Current Tuition:</span>{" "}
-                    {data?.currentTuition}
+                    {data?.data?.currentTuition}
                   </p>
                 </Col>
               </Row>
@@ -160,16 +160,19 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
             </Button>
           </Col>{" "}
           <Col span={11} lg={6}>
-            <Button
-              style={{
-                backgroundColor: "#fffbbd",
-                color: "#edd874",
-                fontWeight: "bold",
-                width: "100%",
-              }}
-            >
-              <Link href={`/tutor/order/${data?._id}`}>Order</Link>
-            </Button>
+            <Link href={`/tutor/order/${data?.data?._id}`}>
+              {" "}
+              <Button
+                style={{
+                  backgroundColor: "#fffbbd",
+                  color: "#edd874",
+                  fontWeight: "bold",
+                  width: "100%",
+                }}
+              >
+                Order
+              </Button>
+            </Link>
           </Col>
         </Row>
       </Card>
@@ -193,167 +196,37 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
         align="middle"
         gutter={[10, 24]}
       >
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card
-            hoverable
-            style={{
-              width: 180,
-              background: "#f7f7e6",
-              padding: "0",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              ajsdasdj name
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>ahsudiuasdh review</p>{" "}
-            <p style={{ margin: "10px 0" }}>
-              <span style={{ fontWeight: "bold" }}>Rating:</span> {data?.gender}
-            </p>
-          </Card>
-        </Col>
+        {data?.data?.reviews?.length !== 0 ? (
+          data?.data?.reviews?.map((rev: any, index: number) => (
+            <Col key={index} sm={12} md={6} lg={4}>
+              <Card
+                hoverable
+                style={{
+                  width: 180,
+                  background: "#f7f7e6",
+                  padding: "0",
+                }}
+              >
+                <h4
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {rev.name}
+                </h4>
+                <p style={{ margin: "10px 0 0 0" }}>{rev.review}</p>{" "}
+                <p style={{ margin: "10px 0", textAlign: "center" }}>
+                  <span style={{ fontWeight: "bold" }}>
+                    Rating: {rev.rating}
+                  </span>{" "}
+                </p>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
       </Row>
     </div>
   );

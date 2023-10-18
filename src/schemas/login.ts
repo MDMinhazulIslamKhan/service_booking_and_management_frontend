@@ -5,6 +5,11 @@ export const loginSchema = yup.object().shape({
   password: yup.string().min(6).max(32).required("Password is required"),
 });
 
+export const passwordUpdateSchema = yup.object().shape({
+  oldPassword: yup.string().min(6).max(32).required("Password is required"),
+  newPassword: yup.string().min(6).max(32).required("Password is required"),
+});
+
 export const registrationSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
   password: yup.string().min(6).max(32).required("Password is required"),

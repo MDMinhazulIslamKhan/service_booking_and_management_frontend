@@ -11,7 +11,7 @@ interface IModal {
   showOkButton?: boolean;
 }
 
-const UMModal = ({
+const ModalComponent = ({
   isOpen,
   closeModal,
   title,
@@ -36,4 +36,4 @@ const UMModal = ({
   );
 };
 
-export default UMModal;
+export default ModalComponent;

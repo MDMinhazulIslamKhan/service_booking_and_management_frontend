@@ -13,6 +13,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
     userRegistration: build.mutation({
       query: (loginData) => ({
         url: `${USER_URL}/signup`,
@@ -21,7 +22,38 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
+    userOwnProfile: build.query({
+      query: () => ({
+        url: `${USER_URL}/profile`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user, tagTypes.booking],
+    }),
+
+    updateUsersOwnProfile: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/profile`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+
+    userChangePassword: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/change-password`,
+        method: "PATCH",
+        data: data,
+      }),
+    }),
   }),
 });
 
-export const { useUserLoginMutation, useUserRegistrationMutation } = userApi;
+export const {
+  useUserLoginMutation,
+  useUserRegistrationMutation,
+  useUserOwnProfileQuery,
+  useUpdateUsersOwnProfileMutation,
+  useUserChangePasswordMutation,
+} = userApi;

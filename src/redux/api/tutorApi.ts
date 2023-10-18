@@ -38,12 +38,30 @@ export const tutorApi: any = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.tutor, tagTypes.booking],
     }),
+
     tutorOwnProfile: build.query({
       query: () => ({
         url: `${TUTOR_URL}/profile`,
         method: "GET",
       }),
       providesTags: [tagTypes.tutor, tagTypes.booking],
+    }),
+
+    updateOwnProfile: build.mutation({
+      query: (data) => ({
+        url: `${TUTOR_URL}/profile/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.tutor],
+    }),
+
+    tutorChangePassword: build.mutation({
+      query: (data) => ({
+        url: `${TUTOR_URL}/change-password`,
+        method: "PATCH",
+        data: data,
+      }),
     }),
   }),
 });
@@ -54,4 +72,6 @@ export const {
   useSingleTutorByUserQuery,
   useTutorRegistrationMutation,
   useTutorOwnProfileQuery,
+  useUpdateOwnProfileMutation,
+  useTutorChangePasswordMutation,
 } = tutorApi;

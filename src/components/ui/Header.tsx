@@ -39,57 +39,68 @@ const Header = () => {
           {
             key: "-1",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href="/cart">Cart</Link>
-              </Button>
+              <Link href="/cart">
+                {" "}
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Cart
+                </Button>
+              </Link>
             ),
           },
           {
             key: "0",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href={`/profile/${role}`}>Profile</Link>
-              </Button>
+              <Link href={`/${role}/profile`}>
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Profile
+                </Button>
+              </Link>
             ),
           },
           {
             key: "1",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href="/booking">Booking</Link>
-              </Button>
+              <Link href="/booking">
+                {" "}
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Booking
+                </Button>
+              </Link>
             ),
           },
           {
             key: "2",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href="/history">History</Link>
-              </Button>
+              <Link href={`/${role}/profile`}>
+                {" "}
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  History
+                </Button>
+              </Link>
             ),
           },
           {
@@ -112,43 +123,50 @@ const Header = () => {
           {
             key: "0",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href={`/profile/${role}`}>Profile</Link>
-              </Button>
+              <Link href={`/${role}/profile`}>
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Profile
+                </Button>
+              </Link>
             ),
           },
           {
             key: "1",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href="/offer">Offer</Link>
-              </Button>
+              <Link href="/offer">
+                {" "}
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Offer
+                </Button>
+              </Link>
             ),
           },
           {
             key: "2",
             label: (
-              <Button
-                style={{
-                  backgroundColor: "#c3ffbd",
-                  color: "#07b318",
-                  width: "100%",
-                }}
-              >
-                <Link href="/history">History</Link>
-              </Button>
+              <Link href={`/${role}/profile`}>
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  History
+                </Button>
+              </Link>
             ),
           },
           {
@@ -172,14 +190,17 @@ const Header = () => {
       {
         key: "0",
         label: (
-          <Button
-            style={{
-              backgroundColor: "#c3ffbd",
-              color: "#07b318",
-            }}
-          >
-            <Link href="/login">Login</Link>
-          </Button>
+          <Link href="/login">
+            {" "}
+            <Button
+              style={{
+                backgroundColor: "#c3ffbd",
+                color: "#07b318",
+              }}
+            >
+              Login
+            </Button>
+          </Link>
         ),
       },
     ];
