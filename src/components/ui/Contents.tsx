@@ -12,8 +12,6 @@ const Contents = ({ children }: { children: React.ReactNode }) => {
         color: "black",
       }}
     >
-      <Header />
-
       <div
         style={{
           padding: "10px",

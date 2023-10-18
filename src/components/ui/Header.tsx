@@ -34,8 +34,74 @@ const Header = () => {
   };
 
   let items: MenuProps["items"] =
-    role == "user"
+    role == "tutor"
       ? [
+          {
+            key: "0",
+            label: (
+              <Link href={`/${role}/profile`}>
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Profile
+                </Button>
+              </Link>
+            ),
+          },
+          {
+            key: "1",
+            label: (
+              <Link href="/tutor/offer">
+                {" "}
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  Offer
+                </Button>
+              </Link>
+            ),
+          },
+          {
+            key: "2",
+            label: (
+              <Link href={`/tutor/profile`}>
+                <Button
+                  style={{
+                    backgroundColor: "#c3ffbd",
+                    color: "#07b318",
+                    width: "100%",
+                  }}
+                >
+                  History
+                </Button>
+              </Link>
+            ),
+          },
+          {
+            key: "3",
+            label: (
+              <Button
+                style={{
+                  width: "100%",
+                }}
+                onClick={logOut}
+                type="text"
+                danger
+              >
+                Logout
+              </Button>
+            ),
+          },
+        ]
+      : [
           {
             key: "-1",
             label: (
@@ -56,7 +122,7 @@ const Header = () => {
           {
             key: "0",
             label: (
-              <Link href={`/${role}/profile`}>
+              <Link href={`/user/profile`}>
                 <Button
                   style={{
                     backgroundColor: "#c3ffbd",
@@ -89,74 +155,8 @@ const Header = () => {
           {
             key: "2",
             label: (
-              <Link href={`/${role}/profile`}>
+              <Link href={`/user/profile`}>
                 {" "}
-                <Button
-                  style={{
-                    backgroundColor: "#c3ffbd",
-                    color: "#07b318",
-                    width: "100%",
-                  }}
-                >
-                  History
-                </Button>
-              </Link>
-            ),
-          },
-          {
-            key: "3",
-            label: (
-              <Button
-                style={{
-                  width: "100%",
-                }}
-                onClick={logOut}
-                type="text"
-                danger
-              >
-                Logout
-              </Button>
-            ),
-          },
-        ]
-      : [
-          {
-            key: "0",
-            label: (
-              <Link href={`/${role}/profile`}>
-                <Button
-                  style={{
-                    backgroundColor: "#c3ffbd",
-                    color: "#07b318",
-                    width: "100%",
-                  }}
-                >
-                  Profile
-                </Button>
-              </Link>
-            ),
-          },
-          {
-            key: "1",
-            label: (
-              <Link href="/offer">
-                {" "}
-                <Button
-                  style={{
-                    backgroundColor: "#c3ffbd",
-                    color: "#07b318",
-                    width: "100%",
-                  }}
-                >
-                  Offer
-                </Button>
-              </Link>
-            ),
-          },
-          {
-            key: "2",
-            label: (
-              <Link href={`/${role}/profile`}>
                 <Button
                   style={{
                     backgroundColor: "#c3ffbd",
@@ -185,6 +185,97 @@ const Header = () => {
             ),
           },
         ];
+  if (
+    role == "super_admin" ||
+    role == "admin" ||
+    role == "admin_user" ||
+    role == "admin_tutor"
+  ) {
+    items = [
+      {
+        key: "-2",
+        label: (
+          <Link href="/dashboard/all-bookings">
+            {" "}
+            <Button
+              style={{
+                backgroundColor: "#c3ffbd",
+                color: "#07b318",
+                width: "100%",
+              }}
+            >
+              Dashboard
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        key: "-1",
+        label: (
+          <Link href="/cart">
+            {" "}
+            <Button
+              style={{
+                backgroundColor: "#c3ffbd",
+                color: "#07b318",
+                width: "100%",
+              }}
+            >
+              Cart
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        key: "0",
+        label: (
+          <Link href={`/user/profile`}>
+            <Button
+              style={{
+                backgroundColor: "#c3ffbd",
+                color: "#07b318",
+                width: "100%",
+              }}
+            >
+              Profile
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        key: "1",
+        label: (
+          <Link href="/user/booking">
+            {" "}
+            <Button
+              style={{
+                backgroundColor: "#c3ffbd",
+                color: "#07b318",
+                width: "100%",
+              }}
+            >
+              Booking
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        key: "3",
+        label: (
+          <Button
+            style={{
+              width: "100%",
+            }}
+            onClick={logOut}
+            type="text"
+            danger
+          >
+            Logout
+          </Button>
+        ),
+      },
+    ];
+  }
   if (!isLoggedIn()) {
     items = [
       {
