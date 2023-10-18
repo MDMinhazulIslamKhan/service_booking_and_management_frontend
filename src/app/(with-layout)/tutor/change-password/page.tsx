@@ -4,7 +4,7 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ModalComponent from "@/components/ui/Modal";
 import { useTutorChangePasswordMutation } from "@/redux/api/tutorApi";
-import { passwordUpdateSchema } from "@/schemas/login";
+import { passwordUpdateSchema } from "@/schemas/allValidationSchema";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Card, message } from "antd";

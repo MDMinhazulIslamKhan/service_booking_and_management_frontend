@@ -160,7 +160,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
             </Button>
           </Col>{" "}
           <Col span={11} lg={6}>
-            <Link href={`/tutor/order/${data?.data?._id}`}>
+            <Link href={`/booking/${data?.data?._id}`}>
               {" "}
               <Button
                 style={{
@@ -170,7 +170,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                   width: "100%",
                 }}
               >
-                Order
+                Booking
               </Button>
             </Link>
           </Col>

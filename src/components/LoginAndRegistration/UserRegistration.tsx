@@ -8,7 +8,7 @@ import Form from "@/components/Forms/Form";
 import { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { registrationSchema } from "@/schemas/login";
+import { registrationSchema } from "@/schemas/allValidationSchema";
 import { useUserRegistrationMutation } from "@/redux/api/userApi";
 import { isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";

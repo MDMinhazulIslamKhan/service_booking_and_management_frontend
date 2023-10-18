@@ -21,6 +21,13 @@ export const registrationSchema = yup.object().shape({
     .required("Phone Number is required"),
 });
 
+export const bookingSchema = yup.object().shape({
+  dayPerWeek: yup.number().min(1).max(7).required("Day per week is required"),
+  maxSalary: yup.number().min(500).required("Max Salary is required"),
+  location: yup.string().required("Location is required"),
+  description: yup.string().required("Description is required"),
+});
+
 export const registrationTutorSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
   password: yup.string().min(6).max(32).required("Password is required"),

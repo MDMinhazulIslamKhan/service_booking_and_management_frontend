@@ -8,6 +8,7 @@ type UMDatePikerProps = {
   label?: string;
   value?: Dayjs;
   size?: "large" | "small";
+  required?: boolean;
 };
 
 const FormDatePicker = ({
@@ -15,6 +16,7 @@ const FormDatePicker = ({
   label,
   onChange,
   size = "large",
+  required,
 }: UMDatePikerProps) => {
   const { control, setValue } = useFormContext();
 
@@ -22,9 +24,20 @@ const FormDatePicker = ({
     onChange ? onChange(date, dateString) : null;
     setValue(name, date);
   };
+  const dateFormat = "YYYY-MM-DD";
 
   return (
     <div>
+      {" "}
+      {required ? (
+        <span
+          style={{
+            color: "red",
+          }}
+        >
+          *
+        </span>
+      ) : null}
       {label ? label : null}
       <br />
       <Controller
@@ -32,10 +45,11 @@ const FormDatePicker = ({
         control={control}
         render={({ field }) => (
           <DatePicker
-            defaultValue={dayjs(field.value) || Date.now()}
+            defaultValue={dayjs("2023-01-01", dateFormat) || dayjs(field.value)}
             size={size}
             onChange={handleOnChange}
             style={{ width: "100%" }}
+            format={dateFormat}
           />
         )}
       />

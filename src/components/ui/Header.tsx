@@ -30,7 +30,7 @@ const Header = () => {
   const { role } = getUserInfo() as any;
 
   const goTo = () => {
-    role == "user" ? router.push("/booking") : router.push("/offer");
+    role == "user" ? router.push("/user/booking") : router.push("/offer");
   };
 
   let items: MenuProps["items"] =
@@ -72,7 +72,7 @@ const Header = () => {
           {
             key: "1",
             label: (
-              <Link href="/booking">
+              <Link href="/user/booking">
                 {" "}
                 <Button
                   style={{
