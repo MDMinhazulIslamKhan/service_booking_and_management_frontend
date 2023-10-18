@@ -1,7 +1,7 @@
 "use client";
 import Contents from "@/components/ui/Contents";
 import SideBar from "@/components/ui/Sidebar";
-import { isLoggedIn } from "@/services/auth.service";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { Layout, Row, Space, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,13 +10,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const userLoggedIn = isLoggedIn();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { role } = getUserInfo() as any;
 
   useEffect(() => {
-    if (!userLoggedIn) {
-      router.push("/login");
+    if (!userLoggedIn || role == "tutor" || role == "user") {
+      router.push("/home");
     }
     setIsLoading(true);
-  }, [router, isLoading]);
+  }, [router, isLoading, role, userLoggedIn]);
 
   if (!isLoading) {
     return (
@@ -35,7 +36,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <Layout hasSider>
+    <Layout hasSider style={{ backgroundColor: "#f3f4de" }}>
       <SideBar />
       <Contents>{children}</Contents>
     </Layout>

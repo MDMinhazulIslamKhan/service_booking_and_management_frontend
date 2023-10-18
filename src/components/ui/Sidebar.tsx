@@ -42,13 +42,13 @@ const SideBar = () => {
           },
         ],
       },
+      // {
+      //   label: <Link href="/dashboard/update-user">Update User</Link>,
+      //   icon: <RedoOutlined />,
+      //   key: "update",
+      // },
       {
-        label: <Link href="/dashboard/update-user">Update User</Link>,
-        icon: <RedoOutlined />,
-        key: "update",
-      },
-      {
-        label: <Link href="/dashboard/bookings">All bookings</Link>,
+        label: <Link href="/dashboard/all-bookings">All bookings</Link>,
         icon: <ScheduleOutlined />,
         key: "booking",
       },
@@ -61,7 +61,7 @@ const SideBar = () => {
           <Link href="/dashboard/requested-bookings">Requested bookings</Link>
         ),
         icon: <BookOutlined />,
-        key: "booking",
+        key: "bookingRequest",
       },
     ];
     if (role == "admin_user") {

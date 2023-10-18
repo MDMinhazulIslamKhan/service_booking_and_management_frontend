@@ -1,9 +1,8 @@
 "use client";
-import AllBookings from "@/components/Bookings/AllBookings";
+import AllBookings from "@/components/Bookings/MyAllBookings";
 import { useOwnBookingQuery } from "@/redux/api/bookingApi";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
-import { Button, Card, Col, Empty, Row } from "antd";
-import Link from "next/link";
+import { Card, Empty, Row } from "antd";
 import { useRouter } from "next/navigation";
 
 const UserBooking = () => {

@@ -30,7 +30,7 @@ const Header = () => {
   const { role } = getUserInfo() as any;
 
   const goTo = () => {
-    role == "user" ? router.push("/user/booking") : router.push("/offer");
+    role == "user" ? router.push("/tutor/offer") : router.push("/user/booking");
   };
 
   let items: MenuProps["items"] =
@@ -313,8 +313,13 @@ const Header = () => {
       >
         <Col flex="none"></Col>
         <Col flex="auto">
-          <Link href="/home">
-            <h1
+          <h1
+            style={{
+              textAlign: "center",
+            }}
+          >
+            <Link
+              href="/home"
               style={{
                 textAlign: "center",
                 color: "red",
@@ -323,8 +328,8 @@ const Header = () => {
               }}
             >
               My Tutor
-            </h1>
-          </Link>
+            </Link>
+          </h1>
         </Col>
         <Col flex="none">
           <Row justify="end" align="middle">

@@ -13,7 +13,6 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
-
     userRegistration: build.mutation({
       query: (loginData) => ({
         url: `${USER_URL}/signup`,
@@ -22,7 +21,6 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
-
     userOwnProfile: build.query({
       query: () => ({
         url: `${USER_URL}/profile`,
@@ -30,7 +28,28 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.user, tagTypes.booking],
     }),
-
+    allUserByAdmin: build.query({
+      query: () => ({
+        url: `${USER_URL}/get-all-users`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user, tagTypes.booking],
+    }),
+    getSingleUser: build.query({
+      query: (id) => ({
+        url: `${USER_URL}/single-user/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user, tagTypes.booking],
+    }),
+    updateUserByAdmin: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/profile/${data.id}`,
+        method: "PATCH",
+        data: data.data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
     updateUsersOwnProfile: build.mutation({
       query: (data) => ({
         url: `${USER_URL}/profile`,
@@ -39,7 +58,22 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
-
+    updateUsersProfileByAdmin: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/profile/${data.id}`,
+        method: "PATCH",
+        data: data.updatedData,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+    changeRole: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/change-role/${data.id}`,
+        method: "PATCH",
+        data: data.data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
     userChangePassword: build.mutation({
       query: (data) => ({
         url: `${USER_URL}/change-password`,
@@ -54,6 +88,11 @@ export const {
   useUserLoginMutation,
   useUserRegistrationMutation,
   useUserOwnProfileQuery,
+  useAllUserByAdminQuery,
+  useUpdateUsersProfileByAdminMutation,
+  useChangeRoleMutation,
   useUpdateUsersOwnProfileMutation,
   useUserChangePasswordMutation,
+  useGetSingleUserQuery,
+  useUpdateUserByAdminMutation,
 } = userApi;

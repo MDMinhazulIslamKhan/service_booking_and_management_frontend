@@ -1,17 +1,24 @@
 "use client";
-import AdminAllBookings from "@/components/Bookings/AdminAllBookings";
-import { useAllBookingQuery, useOwnBookingQuery } from "@/redux/api/bookingApi";
-import { getUserInfo } from "@/services/auth.service";
+import AdminAllUsers from "@/components/Bookings/AdminAllUsers";
+import { useAllUserByAdminQuery } from "@/redux/api/userApi";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { Card, Empty, Row } from "antd";
 import { useRouter } from "next/navigation";
 
-const AllBooking = () => {
+const AllUsers = () => {
   const { role } = getUserInfo() as any;
   const router = useRouter();
+  if (typeof window !== "undefined") {
+    if (!isLoggedIn() || role == "tutor") {
+      router.push("/home");
+    }
+  }
+  const { data } = useAllUserByAdminQuery(undefined);
 
-  const { data, isLoading } = useAllBookingQuery(undefined);
   return (
-    <Card bodyStyle={{ overflow: "hidden", minHeight: "100vh" }}>
+    <Card
+      bodyStyle={{ padding: "20px", overflow: "hidden", minHeight: "100vh" }}
+    >
       <h4
         style={{
           textAlign: "center",
@@ -20,7 +27,7 @@ const AllBooking = () => {
           backgroundColor: "white",
         }}
       >
-        All Bookings
+        All Users
       </h4>
       <Row
         justify="space-between"
@@ -32,10 +39,10 @@ const AllBooking = () => {
         align="middle"
         gutter={[10, 24]}
       >
-        {data?.data.length !== 0 ? (
-          data?.data?.map((booking: any, index: number) => (
+        {data?.data?.data.length !== 0 ? (
+          data?.data?.data?.map((booking: any, index: number) => (
             <>
-              <AdminAllBookings data={booking} key={index} />
+              <AdminAllUsers data={booking} key={index} />
             </>
           ))
         ) : (
@@ -49,4 +56,4 @@ const AllBooking = () => {
   );
 };
 
-export default AllBooking;
+export default AllUsers;
