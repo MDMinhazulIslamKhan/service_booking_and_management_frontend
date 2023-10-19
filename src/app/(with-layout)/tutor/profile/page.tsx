@@ -156,6 +156,12 @@ const TutorProfile = ({ params }: { params: { id: string } }) => {
                     </span>{" "}
                     {data?.data?.maximumTuitionCapacity}
                   </p>
+                  <p style={{ margin: "10px 0" }}>
+                    <span style={{ fontWeight: "bold" }}>
+                      Total tuition taken:
+                    </span>{" "}
+                    {data?.data?.totalTuitionTaken}
+                  </p>
                 </Col>
               </Row>
               <Row justify="space-around">

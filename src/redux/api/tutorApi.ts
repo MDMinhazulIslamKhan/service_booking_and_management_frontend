@@ -80,11 +80,28 @@ export const tutorApi: any = baseApi.injectEndpoints({
         data: data,
       }),
     }),
+    acceptOwnRequest: build.mutation({
+      query: (id) => ({
+        url: `${TUTOR_URL}/accept-request/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: [tagTypes.booking, tagTypes.user, tagTypes.tutor],
+    }),
+
+    cancelOwnRequest: build.mutation({
+      query: (id) => ({
+        url: `${TUTOR_URL}/cancel-request/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.booking, tagTypes.user, tagTypes.tutor],
+    }),
   }),
 });
 
 export const {
   useTutorLoginMutation,
+  useCancelOwnRequestMutation,
+  useAcceptOwnRequestMutation,
   useAllTutorsByUserQuery,
   useGetAllTutorsByAdminQuery,
   useGetSingleTutorByAdminQuery,

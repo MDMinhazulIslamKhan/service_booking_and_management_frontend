@@ -2,12 +2,22 @@ import { Button, Card, Col, Row, message } from "antd";
 import Link from "next/link";
 import React, { useState } from "react";
 import ModalComponent from "../ui/Modal";
-import { useCancelBookingMutation } from "@/redux/api/bookingApi";
+import {
+  useCancelBookingMutation,
+  useConfirmOwnBookingMutation,
+} from "@/redux/api/bookingApi";
 
 const AllBookings = (data: any) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>("");
   const [cancelBooking] = useCancelBookingMutation(undefined);
+  const [confirmBooking] = useConfirmOwnBookingMutation(undefined);
   const cancelOrder = () => {
+    setStatus("Cancel");
+    setOpen(true);
+  };
+  const confirmOrder = () => {
+    setStatus("Confirm");
     setOpen(true);
   };
   return (
@@ -19,9 +29,29 @@ const AllBookings = (data: any) => {
         backgroundColor: "#f3f4de",
       }}
     >
-      <h3 style={{ margin: "10px 0", textAlign: "center" }}>
-        {data?.data?.tutorId?.fullName}
+      <h3
+        style={{
+          fontWeight: "bold",
+          textDecoration: "underline",
+          textAlign: "center",
+        }}
+      >
+        Tutor
       </h3>
+      <p style={{ margin: "10px 0" }}>
+        <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
+        {data?.data?.tutorId?.fullName}
+      </p>
+      {data?.data?.status == "accepted" && (
+        <p style={{ margin: "10px 0" }}>
+          <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+          {data?.data?.tutorId?.phoneNumber}
+        </p>
+      )}
+      <p style={{ margin: "10px 0" }}>
+        <span style={{ fontWeight: "bold" }}>Booking Status:</span>{" "}
+        {data?.data?.status}
+      </p>
       <h3
         style={{
           fontWeight: "bold",
@@ -31,10 +61,6 @@ const AllBookings = (data: any) => {
       >
         My Conditions
       </h3>
-      <p style={{ margin: "10px 0" }}>
-        <span style={{ fontWeight: "bold" }}>Booking Status:</span>{" "}
-        {data?.data?.status}
-      </p>
       <p style={{ margin: "10px 0" }}>
         <span style={{ fontWeight: "bold" }}>Start Date:</span>{" "}
         {new Intl.DateTimeFormat("en-US", {
@@ -69,10 +95,9 @@ const AllBookings = (data: any) => {
           >
             <h5>Cancel</h5>
           </Button>
-        </Col>{" "}
+        </Col>
         <Col span={12}>
           <Link href={`/tutor/${data?.data?.tutorId?._id}`}>
-            {" "}
             <Button
               style={{
                 backgroundColor: "#c3ffbd",
@@ -86,28 +111,50 @@ const AllBookings = (data: any) => {
             </Button>
           </Link>
         </Col>
-      </Row>{" "}
+      </Row>
+      {data?.data?.status == "accepted" && (
+        <Button
+          onClick={confirmOrder}
+          style={{
+            backgroundColor: "#c3ffbd",
+            color: "#07b318",
+            fontWeight: "bold",
+            width: "100%",
+            padding: "0",
+            marginTop: "20px",
+          }}
+        >
+          <h5>Confirm</h5>
+        </Button>
+      )}
       <ModalComponent
-        title="Cancel Booking"
+        title={`${status} Booking`}
         isOpen={open}
         closeModal={() => {
           setOpen(false);
         }}
         handleOk={async () => {
           try {
-            const res = await cancelBooking(data?.data?._id).unwrap();
+            let res;
+            if (status == "Cancel") {
+              res = await cancelBooking(data?.data?._id).unwrap();
+            }
+            if (status == "Confirm") {
+              res = await confirmBooking(data?.data?._id).unwrap();
+            }
             if (res.statusCode === 500) {
               message.error(res.message);
               setOpen(false);
             } else {
-              message.success("Booking Canceled Successfully!!!");
+              message.success(`Booking ${status}ed successfully...`);
+              setOpen(false);
             }
           } catch (error) {
             message.error("Something went wrong");
           }
         }}
       >
-        <p className="my-5">Are you sure to cancel this booking?</p>
+        <p className="my-5">Are you sure to {status} this booking?</p>
       </ModalComponent>
     </Card>
   );

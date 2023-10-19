@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useGetSingleTutorByAdminQuery } from "@/redux/api/tutorApi";
 const TutorDetails = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useGetSingleTutorByAdminQuery(params.id);
-  console.log(data?.data);
+  console.log(data?.data?.history);
   return (
     <div>
       <Card bodyStyle={{ padding: "20px", overflow: "hidden" }}>
@@ -161,7 +161,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                     {data?.data?.maximumTuitionCapacity}
                   </p>
                   <p style={{ margin: "10px 0" }}>
-                    <span style={{ fontWeight: "bold" }}>Total tuition:</span>{" "}
+                    <span style={{ fontWeight: "bold" }}>Tuition taken:</span>{" "}
                     {data?.data?.totalTuitionTaken}
                   </p>
                 </Col>
@@ -260,8 +260,8 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
         gutter={[10, 24]}
       >
         {data?.data?.history?.length !== 0 ? (
-          data?.data?.history?.map((rev: any, index: number) => (
-            <Col key={index} sm={12} md={6} lg={4}>
+          data?.data?.history?.map((his: any, index: number) => (
+            <Col key={index} sm={8} md={6} lg={6}>
               <Card
                 hoverable
                 style={{
@@ -270,19 +270,29 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                   padding: "0",
                 }}
               >
-                <h4
-                  style={{
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  {rev.name}
-                </h4>
-                <p style={{ margin: "10px 0 0 0" }}>{rev.review}</p>{" "}
                 <p style={{ margin: "10px 0", textAlign: "center" }}>
-                  <span style={{ fontWeight: "bold" }}>
-                    Rating: {rev.rating}
-                  </span>{" "}
+                  <span style={{ fontWeight: "bold" }}>Day per week:</span>{" "}
+                  {his.dayPerWeek}
+                </p>
+                <p style={{ margin: "10px 0", textAlign: "center" }}>
+                  <span style={{ fontWeight: "bold" }}>Salary:</span>{" "}
+                  {his.maxSalary}
+                </p>
+                <p style={{ margin: "10px 0", textAlign: "center" }}>
+                  <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
+                  {his.location}
+                </p>
+                <p style={{ margin: "10px 0", textAlign: "center" }}>
+                  <span style={{ fontWeight: "bold" }}>Started:</span>{" "}
+                  {new Intl.DateTimeFormat("en-US", {
+                    year: "2-digit",
+                    month: "short",
+                    day: "2-digit",
+                  }).format(new Date(his.teachingStartDate))}
+                </p>
+                <p style={{ margin: "10px 0", textAlign: "center" }}>
+                  <span style={{ fontWeight: "bold" }}>Description:</span>{" "}
+                  {his.description}
                 </p>
               </Card>
             </Col>

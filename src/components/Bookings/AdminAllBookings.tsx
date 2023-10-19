@@ -11,9 +11,27 @@ const AdminAllBookings = (data: any) => {
         backgroundColor: "#f3f4de",
       }}
     >
-      <h3 style={{ margin: "10px 0", textAlign: "center" }}>
-        {data?.data?.userId?.fullName}
+      <h3
+        style={{
+          fontWeight: "bold",
+          textDecoration: "underline",
+          textAlign: "center",
+        }}
+      >
+        Request by
       </h3>
+      <p style={{ margin: "10px 0" }}>
+        <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
+        {data?.data?.userId?.fullName}
+      </p>
+      <p style={{ margin: "10px 0" }}>
+        <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+        {data?.data?.userId?.phoneNumber}
+      </p>{" "}
+      <p style={{ margin: "10px 0" }}>
+        <span style={{ fontWeight: "bold" }}>Booking Status:</span>{" "}
+        {data?.data?.status}
+      </p>
       <h3
         style={{
           fontWeight: "bold",
@@ -23,10 +41,6 @@ const AdminAllBookings = (data: any) => {
       >
         Conditions
       </h3>
-      <p style={{ margin: "10px 0" }}>
-        <span style={{ fontWeight: "bold" }}>Booking Status:</span>{" "}
-        {data?.data?.status}
-      </p>
       <p style={{ margin: "10px 0" }}>
         <span style={{ fontWeight: "bold" }}>Start Date:</span>{" "}
         {new Intl.DateTimeFormat("en-US", {
@@ -49,7 +63,7 @@ const AdminAllBookings = (data: any) => {
       </p>
       <Row justify="space-between">
         <Col span={11}>
-          <Link href={`/user/${data?.data?.userId?._id}`}>
+          <Link href={`/dashboard/all-user`}>
             <Button
               style={{
                 backgroundColor: "#ffbdbd",
