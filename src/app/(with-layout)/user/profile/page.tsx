@@ -52,6 +52,10 @@ const UserProfile = () => {
                   <span style={{ fontWeight: "bold" }}>Number:</span>{" "}
                   {data?.data?.phoneNumber}
                 </p>
+                <p style={{ margin: "10px 0", fontSize: "15px" }}>
+                  <span style={{ fontWeight: "bold" }}>Role:</span>{" "}
+                  {data?.data?.role}
+                </p>
               </Card>
               <Row justify="space-around">
                 <Col span={11} lg={6}>

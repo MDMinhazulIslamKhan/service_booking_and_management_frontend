@@ -22,7 +22,7 @@ const Booking = ({ params }: { params: { id: string } }) => {
   const { role } = getUserInfo() as any;
   if (typeof window !== "undefined") {
     if (!isLoggedIn() || role == "tutor") {
-      router.push("/home");
+      router.push("/login");
     }
   }
   const { data: tutorData } = useSingleTutorByUserQuery(params.id);
@@ -170,7 +170,7 @@ const Booking = ({ params }: { params: { id: string } }) => {
             </Button>
           </div>
         </Form>
-      </Card>{" "}
+      </Card>
       <ModalComponent
         title="Tutor Booking"
         isOpen={open}

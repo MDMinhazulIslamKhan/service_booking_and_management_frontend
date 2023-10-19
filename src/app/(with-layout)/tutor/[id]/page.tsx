@@ -3,13 +3,18 @@
 import React from "react";
 import maleTeacher from "../../../../assets/maleTeacher.png";
 import femaleTeacher from "../../../../assets/femaleTeacher.png";
-import { Button, Card, Col, Empty, Row } from "antd";
+import { Button, Card, Col, Empty, Row, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useSingleTutorByUserQuery } from "@/redux/api/tutorApi";
 import { addToLocalStorage } from "@/services/cart.service";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
 const TutorDetails = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useSingleTutorByUserQuery(params.id);
+  const router = useRouter();
+  const { role } = getUserInfo() as any;
+
   return (
     <div>
       <Card bodyStyle={{ padding: "20px", overflow: "hidden" }}>
@@ -149,43 +154,61 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
             </div>
           </Col>
         </Row>
-        <Row justify="space-evenly">
-          <Col span={11} lg={6}>
-            <Button
-              style={{
-                backgroundColor: "#c3ffbd",
-                color: "#07b318",
-                width: "100%",
-              }}
-              onClick={() =>
-                addToLocalStorage(
-                  data?.data?._id,
-                  data?.data?.fullName,
-                  data?.data?.medium,
-                  data?.data?.preferredClass,
-                  data?.data?.expectedMinSalary
-                )
-              }
-            >
-              <h5>Add to cart</h5>
-            </Button>
-          </Col>{" "}
-          <Col span={11} lg={6}>
-            <Link href={`/booking/${data?.data?._id}`}>
-              {" "}
+        {role == "tutor" || (
+          <Row justify="space-evenly">
+            <Col span={11} lg={6}>
               <Button
                 style={{
-                  backgroundColor: "#fffbbd",
-                  color: "#edd874",
-                  fontWeight: "bold",
+                  backgroundColor: "#c3ffbd",
+                  color: "#07b318",
                   width: "100%",
                 }}
+                onClick={() =>
+                  addToLocalStorage(
+                    data?.data?._id,
+                    data?.data?.fullName,
+                    data?.data?.medium,
+                    data?.data?.preferredClass,
+                    data?.data?.expectedMinSalary
+                  )
+                }
               >
-                Booking
+                <h5>Add to cart</h5>
               </Button>
-            </Link>
-          </Col>
-        </Row>
+            </Col>{" "}
+            <Col span={11} lg={6}>
+              {isLoggedIn() ? (
+                <Link href={`/booking/${data?.data?._id}`}>
+                  <Button
+                    style={{
+                      backgroundColor: "#fffbbd",
+                      color: "#edd874",
+                      fontWeight: "bold",
+                      width: "100%",
+                    }}
+                  >
+                    Booking
+                  </Button>
+                </Link>
+              ) : (
+                <Button
+                  style={{
+                    backgroundColor: "#fffbbd",
+                    color: "#edd874",
+                    fontWeight: "bold",
+                    width: "100%",
+                  }}
+                  onClick={() => {
+                    message.error("Please login...");
+                    router.push("/login");
+                  }}
+                >
+                  Booking
+                </Button>
+              )}
+            </Col>
+          </Row>
+        )}
       </Card>
       <h4
         style={{

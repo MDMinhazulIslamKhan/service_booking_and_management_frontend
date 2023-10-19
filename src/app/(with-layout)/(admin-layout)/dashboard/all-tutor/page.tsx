@@ -1,17 +1,25 @@
 "use client";
-import React from "react";
-import { Button, Card, Col, Row } from "antd";
+import React, { useState } from "react";
+import { Button, Card, Col, Input, Row } from "antd";
 import Image from "next/image";
 import maleTeacher from "../../../../../assets/maleTeacher.png";
 import femaleTeacher from "../../../../../assets/femaleTeacher.png";
 import { useGetAllTutorsByAdminQuery } from "@/redux/api/tutorApi";
 import Link from "next/link";
+import { useDebounced } from "@/redux/hooks";
 
 const AllTutorsForAdmin = () => {
-  const { data, isLoading } = useGetAllTutorsByAdminQuery({
-    page: 1,
-    size: 10,
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const debouncedSearchTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 500,
   });
+
+  if (!!debouncedSearchTerm) {
+    query["searchTerm"] = debouncedSearchTerm;
+  }
+  const { data, isLoading } = useGetAllTutorsByAdminQuery({ ...query });
 
   return (
     <>
@@ -24,7 +32,15 @@ const AllTutorsForAdmin = () => {
         }}
       >
         All Tutors
-      </h4>{" "}
+      </h4>
+      <div style={{ background: "white", display: "flex" }}>
+        <Input
+          size="large"
+          placeholder="Search"
+          style={{ width: "200px", margin: "5px 20px 0 auto" }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <Row
         justify="center"
         style={{ backgroundColor: "white", padding: "20px 30px 20px 20px" }}

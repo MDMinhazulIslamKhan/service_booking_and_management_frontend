@@ -115,6 +115,10 @@ export const classOptions = [
     value: "11-12",
   },
   {
+    label: "IELTS",
+    value: "IELTS",
+  },
+  {
     label: "1-8",
     value: "1-8",
   },
@@ -137,9 +141,5 @@ export const classOptions = [
   {
     label: "Honours",
     value: "Honours",
-  },
-  {
-    label: "IELTS",
-    value: "IELTS",
   },
 ];

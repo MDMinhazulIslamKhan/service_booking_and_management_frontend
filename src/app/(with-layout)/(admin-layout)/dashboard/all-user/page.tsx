@@ -1,19 +1,22 @@
 "use client";
 import AdminAllUsers from "@/components/Bookings/AdminAllUsers";
 import { useAllUserByAdminQuery } from "@/redux/api/userApi";
-import { getUserInfo, isLoggedIn } from "@/services/auth.service";
-import { Card, Empty, Row } from "antd";
-import { useRouter } from "next/navigation";
+import { useDebounced } from "@/redux/hooks";
+import { Card, Empty, Input, Row } from "antd";
+import { useState } from "react";
 
 const AllUsers = () => {
-  const { role } = getUserInfo() as any;
-  const router = useRouter();
-  if (typeof window !== "undefined") {
-    if (!isLoggedIn() || role == "tutor") {
-      router.push("/home");
-    }
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const debouncedSearchTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 500,
+  });
+
+  if (!!debouncedSearchTerm) {
+    query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data } = useAllUserByAdminQuery(undefined);
+  const { data } = useAllUserByAdminQuery({ ...query });
 
   return (
     <Card
@@ -29,6 +32,14 @@ const AllUsers = () => {
       >
         All Users
       </h4>
+      <div style={{ background: "white", display: "flex", marginTop: "-58px" }}>
+        <Input
+          size="large"
+          placeholder="Search"
+          style={{ width: "200px", margin: "5px 20px 0 auto" }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <Row
         justify="space-between"
         style={{

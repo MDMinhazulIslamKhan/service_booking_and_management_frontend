@@ -281,12 +281,28 @@ const Header = () => {
       {
         key: "0",
         label: (
+          <Link href="/cart">
+            <Button
+              style={{
+                width: "100%",
+                backgroundColor: "#c3ffbd",
+                color: "#07b318",
+              }}
+            >
+              Cart
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        key: "1",
+        label: (
           <Link href="/login">
-            {" "}
             <Button
               style={{
                 backgroundColor: "#c3ffbd",
                 color: "#07b318",
+                width: "100%",
               }}
             >
               Login

@@ -29,9 +29,10 @@ export const userApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.user, tagTypes.booking],
     }),
     allUserByAdmin: build.query({
-      query: () => ({
+      query: (data) => ({
         url: `${USER_URL}/get-all-users`,
         method: "GET",
+        params: data,
       }),
       providesTags: [tagTypes.user, tagTypes.booking],
     }),

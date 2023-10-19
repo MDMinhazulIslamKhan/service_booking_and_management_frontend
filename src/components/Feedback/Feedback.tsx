@@ -1,45 +1,74 @@
 "use client";
 import { useGetFeedbacksQuery } from "@/redux/api/feedbackApi";
-import { Card, Col, Row } from "antd";
+import { Button, Card, Col, Row } from "antd";
+import Link from "next/link";
 import React from "react";
 
 const Feedback = () => {
   const { data, isLoading } = useGetFeedbacksQuery({ page: 1, size: 12 });
 
   return (
-    <Row
-      justify="center"
-      style={{
-        backgroundColor: "white",
-        width: "100%",
-        padding: "20px",
-      }}
-      align="middle"
-      gutter={[10, 24]}
-    >
-      {data?.data?.data?.map((singleFeedback: any, index: number) => (
-        <Col key={index} sm={12} md={6} lg={4} className="gutter-row">
-          <Card
-            hoverable
+    <>
+      <Row
+        justify="center"
+        style={{
+          backgroundColor: "white",
+          width: "100%",
+          padding: "20px",
+        }}
+        align="middle"
+        gutter={[10, 24]}
+      >
+        {data?.data?.data
+          ?.slice(0, 9)
+          .map((singleFeedback: any, index: number) => (
+            <Col key={index} sm={12} md={6} lg={4} className="gutter-row">
+              <Card
+                hoverable
+                style={{
+                  width: 170,
+                  background: "#f7f7e6",
+                  padding: "0",
+                }}
+              >
+                <h2
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {singleFeedback.name}
+                </h2>
+                <p style={{ margin: "10px 0 0 0" }}>
+                  {singleFeedback.feedback}
+                </p>
+              </Card>
+            </Col>
+          ))}
+      </Row>
+      <div
+        style={{
+          background: "white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingBottom: "10px",
+        }}
+      >
+        <Link href={`/feedback`}>
+          <Button
             style={{
-              width: 170,
-              background: "#f7f7e6",
-              padding: "0",
+              backgroundColor: "#fffbbd",
+              color: "#b3a562",
+              fontWeight: "bold",
+              width: "200px",
             }}
           >
-            <h2
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              {singleFeedback.name}
-            </h2>
-            <p style={{ margin: "10px 0 0 0" }}>{singleFeedback.feedback}</p>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+            Give your feedback
+          </Button>
+        </Link>
+      </div>
+    </>
   );
 };
 
