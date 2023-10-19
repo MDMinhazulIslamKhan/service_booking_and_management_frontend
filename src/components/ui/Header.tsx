@@ -18,6 +18,7 @@ import {
 import { authKey } from "@/constants/storageKey";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import NotificationCounter from "@/services/notificationCount";
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
@@ -349,18 +350,7 @@ const Header = () => {
         </Col>
         <Col flex="none">
           <Row justify="end" align="middle">
-            {isLoggedIn() && (
-              <Badge size="small" count={99}>
-                <Avatar
-                  onClick={goTo}
-                  size="default"
-                  style={{
-                    margin: "5px 0 0",
-                  }}
-                  icon={<BellOutlined />}
-                />
-              </Badge>
-            )}
+            {isLoggedIn() && <NotificationCounter />}
             <Dropdown menu={{ items }}>
               <a
                 style={{

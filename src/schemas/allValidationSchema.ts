@@ -10,6 +10,15 @@ export const passwordUpdateSchema = yup.object().shape({
   newPassword: yup.string().min(6).max(32).required("Password is required"),
 });
 
+export const reviewSchema = yup.object().shape({
+  review: yup.string().required("Review is required"),
+  rating: yup.string().required("Rating is required"),
+});
+
+export const feedbackSchema = yup.object().shape({
+  feedback: yup.string().required("Feedback is required"),
+});
+
 export const registrationSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
   password: yup.string().min(6).max(32).required("Password is required"),

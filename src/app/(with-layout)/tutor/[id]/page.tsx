@@ -1,20 +1,43 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import maleTeacher from "../../../../assets/maleTeacher.png";
 import femaleTeacher from "../../../../assets/femaleTeacher.png";
 import { Button, Card, Col, Empty, Row, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useSingleTutorByUserQuery } from "@/redux/api/tutorApi";
+import {
+  useReviewTutorMutation,
+  useSingleTutorByUserQuery,
+} from "@/redux/api/tutorApi";
 import { addToLocalStorage } from "@/services/cart.service";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
+import Form from "@/components/Forms/Form";
+import FormTextArea from "@/components/Forms/FormTextArea";
+import ModalComponent from "@/components/ui/Modal";
+import FormSelectField, {
+  SelectOptions,
+} from "@/components/Forms/FormSelectField";
+import { ratingOptions } from "@/constants/golbal";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { reviewSchema } from "@/schemas/allValidationSchema";
 const TutorDetails = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useSingleTutorByUserQuery(params.id);
+  const [postReview] = useReviewTutorMutation(undefined);
+
+  const [modalData, setModalData] = useState({});
+  const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   const { role } = getUserInfo() as any;
-
+  const onSubmit = async (review: any) => {
+    const reviewData = {
+      id: data?.data?._id,
+      body: { review: review.review, rating: +review.rating },
+    };
+    setModalData(reviewData);
+    setOpen(true);
+  };
   return (
     <div>
       <Card bodyStyle={{ padding: "20px", overflow: "hidden" }}>
@@ -249,11 +272,11 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                 >
                   {rev.name}
                 </h4>
-                <p style={{ margin: "10px 0 0 0" }}>{rev.review}</p>{" "}
+                <p style={{ margin: "10px 0 0 0" }}>{rev.review}</p>
                 <p style={{ margin: "10px 0", textAlign: "center" }}>
                   <span style={{ fontWeight: "bold" }}>
                     Rating: {rev.rating}
-                  </span>{" "}
+                  </span>
                 </p>
               </Card>
             </Col>
@@ -262,6 +285,90 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </Row>
+      {isLoggedIn() && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "10px",
+            padding: "20px 0",
+            backgroundColor: "white",
+          }}
+        >
+          <Card bodyStyle={{ padding: "20px 20px", overflow: "hidden" }}>
+            <Form submitHandler={onSubmit} resolver={yupResolver(reviewSchema)}>
+              <h1
+                style={{
+                  margin: "0 0 15px 0px",
+                  textAlign: "center",
+                }}
+              >
+                Review Tutor
+              </h1>
+              <div style={{ margin: "5px 0" }}>
+                <FormTextArea name="review" label="Your review" required />
+              </div>
+              <div style={{ margin: "5px 0" }}>
+                <FormSelectField
+                  options={ratingOptions as SelectOptions[]}
+                  name="rating"
+                  label="Your review"
+                  required
+                />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  marginTop: "20px",
+                }}
+              >
+                <Button
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "50%",
+                  }}
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Card>
+        </div>
+      )}
+      <ModalComponent
+        title="Review"
+        isOpen={open}
+        closeModal={() => {
+          setOpen(false);
+        }}
+        handleOk={async () => {
+          try {
+            if (role == "tutor") {
+              message.error(
+                "You are a tutor.Please login as a user to review tutor..."
+              );
+              setOpen(false);
+              return;
+            }
+            const res = await postReview(modalData).unwrap();
+            if (res.statusCode === 500) {
+              message.error(res.message);
+              setOpen(false);
+            } else {
+              message.success("Thanks for your review!!!");
+              setOpen(false);
+            }
+          } catch (error) {
+            message.error("Something went wrong");
+          }
+        }}
+      >
+        <p className="my-5">Are you sure to review the tutor?</p>
+      </ModalComponent>
     </div>
   );
 };

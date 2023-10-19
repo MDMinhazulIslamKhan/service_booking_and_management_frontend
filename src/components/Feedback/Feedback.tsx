@@ -1,11 +1,12 @@
 "use client";
 import { useGetFeedbacksQuery } from "@/redux/api/feedbackApi";
+import { isLoggedIn } from "@/services/auth.service";
 import { Button, Card, Col, Row } from "antd";
 import Link from "next/link";
 import React from "react";
 
 const Feedback = () => {
-  const { data, isLoading } = useGetFeedbacksQuery({ page: 1, size: 12 });
+  const { data, isLoading } = useGetFeedbacksQuery({ page: 1, limit: 12 });
 
   return (
     <>
@@ -55,18 +56,20 @@ const Feedback = () => {
           paddingBottom: "10px",
         }}
       >
-        <Link href={`/feedback`}>
-          <Button
-            style={{
-              backgroundColor: "#fffbbd",
-              color: "#b3a562",
-              fontWeight: "bold",
-              width: "200px",
-            }}
-          >
-            Give your feedback
-          </Button>
-        </Link>
+        {isLoggedIn() && (
+          <Link href={`/feedback`}>
+            <Button
+              style={{
+                backgroundColor: "#fffbbd",
+                color: "#b3a562",
+                fontWeight: "bold",
+                width: "200px",
+              }}
+            >
+              Give your feedback
+            </Button>
+          </Link>
+        )}
       </div>
     </>
   );

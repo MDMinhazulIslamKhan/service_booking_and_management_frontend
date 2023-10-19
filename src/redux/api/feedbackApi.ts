@@ -5,15 +5,14 @@ const FEEDBACK_URL = "/feedback";
 
 export const feedbackApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    // getFeedbacks: build.query({
-    //   query: () => {
-    //     return {
-    //       url: `${FEEDBACK_URL}`,
-    //       method: "GET",
-    //     };
-    //   },
-    //   providesTags: [tagTypes.feedback],
-    // }),
+    postFeedback: build.mutation({
+      query: (data) => ({
+        url: `${FEEDBACK_URL}`,
+        method: "POST",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.feedback],
+    }),
     getFeedbacks: build.query({
       query: (arg: Record<string, any>) => {
         return {
@@ -27,4 +26,4 @@ export const feedbackApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetFeedbacksQuery } = feedbackApi;
+export const { useGetFeedbacksQuery, usePostFeedbackMutation } = feedbackApi;

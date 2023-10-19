@@ -73,6 +73,15 @@ export const tutorApi: any = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.tutor],
     }),
 
+    reviewTutor: build.mutation({
+      query: (data) => ({
+        url: `${TUTOR_URL}/review/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.tutor],
+    }),
+
     tutorChangePassword: build.mutation({
       query: (data) => ({
         url: `${TUTOR_URL}/change-password`,
@@ -106,6 +115,7 @@ export const {
   useGetAllTutorsByAdminQuery,
   useGetSingleTutorByAdminQuery,
   useSingleTutorByUserQuery,
+  useReviewTutorMutation,
   useTutorRegistrationMutation,
   useTutorOwnProfileQuery,
   useUpdateOwnProfileMutation,

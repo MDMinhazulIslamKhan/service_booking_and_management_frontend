@@ -3,7 +3,6 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ModalComponent from "@/components/ui/Modal";
-import { useTutorChangePasswordMutation } from "@/redux/api/tutorApi";
 import { useUserChangePasswordMutation } from "@/redux/api/userApi";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { Button, Card, message } from "antd";
