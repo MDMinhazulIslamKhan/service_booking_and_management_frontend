@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Empty, Input, Row, Select } from "antd";
 import Image from "next/image";
 import maleTeacher from "../../../assets/maleTeacher.png";
@@ -9,11 +9,12 @@ import Link from "next/link";
 import { addToLocalStorage } from "@/services/cart.service";
 import { useDebounced } from "@/redux/hooks";
 import { SelectOptions } from "@/components/Forms/FormSelectField";
-import { genderOptions } from "@/constants/golbal";
+import { genderOptions, pageOptions } from "@/constants/golbal";
 
 const AllTutorsForAdmin = ({ searchParams }: any) => {
   const query: Record<string, any> = {};
-  const [page, setPage] = useState<number>(1);
+  const [pageNo, setPageNo] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [maxSalary, setMaxSalary] = useState<number>(0);
   const [gender, setGender] = useState<string | null>(null);
@@ -24,7 +25,7 @@ const AllTutorsForAdmin = ({ searchParams }: any) => {
   const { preferClass } = searchParams;
 
   query["limit"] = size;
-  query["page"] = page;
+  query["page"] = pageNo;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
 
@@ -57,7 +58,35 @@ const AllTutorsForAdmin = ({ searchParams }: any) => {
     setMaxSalary(0);
   };
   const { data, isLoading } = useAllTutorsByUserQuery({ ...query });
+  useEffect(() => {
+    if (data) {
+      const calculatedTotalPage = Math.ceil(
+        data?.data?.meta?.count / data?.data?.meta?.limit
+      );
+      setTotalPage(calculatedTotalPage);
+    }
+  }, [data]);
 
+  const renderPageButtons = () => {
+    const buttons = [];
+    for (let page = 1; page <= totalPage; page++) {
+      buttons.push(
+        <Button
+          key={page}
+          onClick={() => setPageNo(page)}
+          style={{
+            backgroundColor: "#fffbbd",
+            color: pageNo === page ? "black" : "#b3a562",
+            marginRight: "5px",
+            fontWeight: pageNo === page ? "bold" : "normal",
+          }}
+        >
+          {page}
+        </Button>
+      );
+    }
+    return buttons;
+  };
   return (
     <div>
       <h4
@@ -214,6 +243,29 @@ const AllTutorsForAdmin = ({ searchParams }: any) => {
           />
         )}
       </Row>
+      <div
+        style={{
+          backgroundColor: "white",
+          color: "#b3a562",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "0 0 10px 0",
+        }}
+      >
+        <div>
+          <span style={{ marginRight: "20px" }}>Page No: </span>
+          {renderPageButtons()}
+        </div>
+        <div style={{ marginLeft: "30px" }}>
+          <Select
+            onChange={(e) => setSize(e)}
+            size="small"
+            options={pageOptions}
+            placeholder="Count"
+          />
+        </div>
+      </div>
     </div>
   );
 };
