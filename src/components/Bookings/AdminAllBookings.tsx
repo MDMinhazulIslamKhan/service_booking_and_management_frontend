@@ -64,7 +64,7 @@ const AdminAllBookings = (data: any) => {
           </Link>
         </Col>
         <Col span={12}>
-          <Link href={`/tutor/${data?.data?.tutorId?._id}`}>
+          <Link href={`/dashboard/tutor/${data?.data?.tutorId?._id}`}>
             <Button
               style={{
                 backgroundColor: "#c3ffbd",

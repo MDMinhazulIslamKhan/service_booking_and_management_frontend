@@ -1,10 +1,10 @@
 "use client";
-import AdminAllBookings from "@/components/Bookings/AdminAllBookings";
-import { useAllBookingQuery } from "@/redux/api/bookingApi";
+import AdminAllRequestBookings from "@/components/Bookings/AllRequestBooking";
+import { useRequestedBookingQuery } from "@/redux/api/bookingApi";
 import { Card, Empty, Row } from "antd";
 
-const AllBooking = () => {
-  const { data, isLoading } = useAllBookingQuery(undefined);
+const RequestBooking = () => {
+  const { data, isLoading } = useRequestedBookingQuery(undefined);
   return (
     <Card bodyStyle={{ overflow: "hidden", minHeight: "100vh" }}>
       <h4
@@ -15,7 +15,7 @@ const AllBooking = () => {
           backgroundColor: "white",
         }}
       >
-        All Bookings
+        Booking Request
       </h4>
       <Row
         justify="space-between"
@@ -30,7 +30,7 @@ const AllBooking = () => {
         {data?.data.length !== 0 ? (
           data?.data?.map((booking: any, index: number) => (
             <>
-              <AdminAllBookings data={booking} key={index} />
+              <AdminAllRequestBookings data={booking} key={index} />
             </>
           ))
         ) : (
@@ -44,4 +44,4 @@ const AllBooking = () => {
   );
 };
 
-export default AllBooking;
+export default RequestBooking;

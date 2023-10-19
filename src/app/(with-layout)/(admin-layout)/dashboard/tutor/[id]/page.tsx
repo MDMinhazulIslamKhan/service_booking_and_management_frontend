@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import React from "react";
-import maleTeacher from "../../../../assets/maleTeacher.png";
-import femaleTeacher from "../../../../assets/femaleTeacher.png";
+import maleTeacher from "../../../../../../assets/maleTeacher.png";
+import femaleTeacher from "../../../../../../assets/femaleTeacher.png";
 import { Button, Card, Col, Empty, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useSingleTutorByUserQuery } from "@/redux/api/tutorApi";
+import { useGetSingleTutorByAdminQuery } from "@/redux/api/tutorApi";
 const TutorDetails = ({ params }: { params: { id: string } }) => {
-  const { data, isLoading } = useSingleTutorByUserQuery(params.id);
+  const { data, isLoading } = useGetSingleTutorByAdminQuery(params.id);
+  console.log(data?.data);
   return (
     <div>
       <Card bodyStyle={{ padding: "20px", overflow: "hidden" }}>
@@ -62,6 +63,18 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
               </h4>
               <Row>
                 <Col style={{ marginBottom: "20px" }} md={12}>
+                  <p style={{ margin: "10px 0" }}>
+                    <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
+                    {data?.data?.email}
+                  </p>
+                  <p style={{ margin: "10px 0" }}>
+                    <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+                    {data?.data?.phoneNumber}
+                  </p>
+                  <p style={{ margin: "10px 0" }}>
+                    <span style={{ fontWeight: "bold" }}>Gender:</span>{" "}
+                    {data?.data?.gender}
+                  </p>
                   <p style={{ margin: "10px 0" }}>
                     <span style={{ fontWeight: "bold" }}>Gender:</span>{" "}
                     {data?.data?.gender}
@@ -143,6 +156,14 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                     <span style={{ fontWeight: "bold" }}>Current Tuition:</span>{" "}
                     {data?.data?.currentTuition}
                   </p>
+                  <p style={{ margin: "10px 0" }}>
+                    <span style={{ fontWeight: "bold" }}>Max Capacity:</span>{" "}
+                    {data?.data?.maximumTuitionCapacity}
+                  </p>
+                  <p style={{ margin: "10px 0" }}>
+                    <span style={{ fontWeight: "bold" }}>Total tuition:</span>{" "}
+                    {data?.data?.totalTuitionTaken}
+                  </p>
                 </Col>
               </Row>
             </div>
@@ -150,18 +171,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
         </Row>
         <Row justify="space-evenly">
           <Col span={11} lg={6}>
-            <Button
-              style={{
-                backgroundColor: "#c3ffbd",
-                color: "#07b318",
-                width: "100%",
-              }}
-            >
-              <h5>Add to cart</h5>
-            </Button>
-          </Col>{" "}
-          <Col span={11} lg={6}>
-            <Link href={`/booking/${data?.data?._id}`}>
+            <Link href={`/dashboard/update-tutor/${data?.data?._id}`}>
               {" "}
               <Button
                 style={{
@@ -171,7 +181,7 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                   width: "100%",
                 }}
               >
-                Booking
+                Update
               </Button>
             </Link>
           </Col>
@@ -199,6 +209,58 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
       >
         {data?.data?.reviews?.length !== 0 ? (
           data?.data?.reviews?.map((rev: any, index: number) => (
+            <Col key={index} sm={12} md={6} lg={4}>
+              <Card
+                hoverable
+                style={{
+                  width: 180,
+                  background: "#f7f7e6",
+                  padding: "0",
+                }}
+              >
+                <h4
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {rev.name}
+                </h4>
+                <p style={{ margin: "10px 0 0 0" }}>{rev.review}</p>{" "}
+                <p style={{ margin: "10px 0", textAlign: "center" }}>
+                  <span style={{ fontWeight: "bold" }}>
+                    Rating: {rev.rating}
+                  </span>{" "}
+                </p>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
+      </Row>
+      <h4
+        style={{
+          textAlign: "center",
+          fontSize: "30px",
+          margin: "20px 0 5px",
+          backgroundColor: "white",
+        }}
+      >
+        Tutors History
+      </h4>
+      <Row
+        justify="center"
+        style={{
+          backgroundColor: "white",
+          width: "100%",
+          padding: "20px",
+        }}
+        align="middle"
+        gutter={[10, 24]}
+      >
+        {data?.data?.history?.length !== 0 ? (
+          data?.data?.history?.map((rev: any, index: number) => (
             <Col key={index} sm={12} md={6} lg={4}>
               <Card
                 hoverable

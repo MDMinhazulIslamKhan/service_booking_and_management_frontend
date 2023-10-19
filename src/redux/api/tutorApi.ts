@@ -31,9 +31,26 @@ export const tutorApi: any = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.tutor, tagTypes.booking],
     }),
+    getAllTutorsByAdmin: build.query({
+      query: (arg: Record<string, any>) => {
+        return {
+          url: `${TUTOR_URL}/admin`,
+          method: "GET",
+          params: arg,
+        };
+      },
+      providesTags: [tagTypes.tutor, tagTypes.booking],
+    }),
     singleTutorByUser: build.query({
       query: (id: string) => ({
         url: `${TUTOR_URL}/single-tutor/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.tutor, tagTypes.booking],
+    }),
+    getSingleTutorByAdmin: build.query({
+      query: (id: string) => ({
+        url: `${TUTOR_URL}/admin/${id}`,
         method: "GET",
       }),
       providesTags: [tagTypes.tutor, tagTypes.booking],
@@ -69,6 +86,8 @@ export const tutorApi: any = baseApi.injectEndpoints({
 export const {
   useTutorLoginMutation,
   useAllTutorsByUserQuery,
+  useGetAllTutorsByAdminQuery,
+  useGetSingleTutorByAdminQuery,
   useSingleTutorByUserQuery,
   useTutorRegistrationMutation,
   useTutorOwnProfileQuery,

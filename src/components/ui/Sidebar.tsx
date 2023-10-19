@@ -42,11 +42,6 @@ const SideBar = () => {
           },
         ],
       },
-      // {
-      //   label: <Link href="/dashboard/update-user">Update User</Link>,
-      //   icon: <RedoOutlined />,
-      //   key: "update",
-      // },
       {
         label: <Link href="/dashboard/all-bookings">All bookings</Link>,
         icon: <ScheduleOutlined />,
@@ -58,7 +53,7 @@ const SideBar = () => {
       ...sidebarItems,
       {
         label: (
-          <Link href="/dashboard/requested-bookings">Requested bookings</Link>
+          <Link href="/dashboard/booking-request">Requested bookings</Link>
         ),
         icon: <BookOutlined />,
         key: "bookingRequest",
