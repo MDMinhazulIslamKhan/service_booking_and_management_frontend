@@ -1,7 +1,7 @@
 "use client";
 import { useGetFeedbacksQuery } from "@/redux/api/feedbackApi";
 import { isLoggedIn } from "@/services/auth.service";
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Empty, Row } from "antd";
 import Link from "next/link";
 import React from "react";
 
@@ -20,32 +20,39 @@ const Feedback = () => {
         align="middle"
         gutter={[10, 24]}
       >
-        {data?.data?.data
-          ?.slice(0, 9)
-          .map((singleFeedback: any, index: number) => (
-            <Col key={index} sm={12} md={6} lg={4} className="gutter-row">
-              <Card
-                hoverable
-                style={{
-                  width: 170,
-                  background: "#f7f7e6",
-                  padding: "0",
-                }}
-              >
-                <h2
+        {data?.data?.data?.length !== 0 ? (
+          data?.data?.data
+            ?.slice(0, 9)
+            .map((singleFeedback: any, index: number) => (
+              <Col key={index} sm={12} md={6} lg={4} className="gutter-row">
+                <Card
+                  hoverable
                   style={{
-                    fontWeight: "bold",
-                    textAlign: "center",
+                    width: 170,
+                    background: "#f7f7e6",
+                    padding: "0",
                   }}
                 >
-                  {singleFeedback.name}
-                </h2>
-                <p style={{ margin: "10px 0 0 0" }}>
-                  {singleFeedback.feedback}
-                </p>
-              </Card>
-            </Col>
-          ))}
+                  <h2
+                    style={{
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    {singleFeedback.name}
+                  </h2>
+                  <p style={{ margin: "10px 0 0 0" }}>
+                    {singleFeedback.feedback}
+                  </p>
+                </Card>
+              </Col>
+            ))
+        ) : (
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            style={{ margin: "50px auto" }}
+          />
+        )}
       </Row>
       <div
         style={{

@@ -29,7 +29,7 @@ const AllTutorsForAdmin = ({ searchParams }: any) => {
   query["sortOrder"] = sortOrder;
 
   if (!!preferClass) {
-    query["tutorPreferredClass"] = preferClass;
+    query["preferredClass"] = preferClass;
   }
   if (!!gender) {
     query["gender"] = gender;
@@ -55,7 +55,6 @@ const AllTutorsForAdmin = ({ searchParams }: any) => {
     setGender(null);
     setPreferableClass(null);
     setMaxSalary(0);
-    console.log(query);
   };
   const { data, isLoading } = useAllTutorsByUserQuery({ ...query });
 

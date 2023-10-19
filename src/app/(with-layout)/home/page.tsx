@@ -4,10 +4,11 @@ import CollegeTeacher from "../../../assets/CollegeTeacher.png";
 import IeltsTeacher from "../../../assets/IeltsTeacher.png";
 import SchoolTeacher from "../../../assets/SchoolTeacher.png";
 import Image from "next/image";
-import { Card, Col, Row } from "antd";
+import { Button, Card, Col, Row } from "antd";
 import Meta from "antd/es/card/Meta";
 import AllTutors from "@/components/Tutors/Tutors";
 import Feedback from "@/components/Feedback/Feedback";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -75,6 +76,19 @@ const Home = () => {
               title="School Teacher"
               description="See our best School teacher for your children. Our tutors will take great care to make your child a successful person."
             />
+            <Link href="/all-tutor?preferClass=1-10">
+              <Button
+                style={{
+                  backgroundColor: "#fffbbd",
+                  color: "#b3a562",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginTop: "20px",
+                }}
+              >
+                <h5>See All</h5>
+              </Button>
+            </Link>{" "}
           </Card>
         </Col>
         <Col xs={15} sm={10} lg={8}>
@@ -93,7 +107,20 @@ const Home = () => {
             <Meta
               title="College Teacher"
               description="Experienced and best qualities of college teacher from wellknown universities. To clear your basic, quickly find a best tutor for you."
-            />
+            />{" "}
+            <Link href="/all-tutor?preferClass=11-12">
+              <Button
+                style={{
+                  backgroundColor: "#fffbbd",
+                  color: "#b3a562",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginTop: "20px",
+                }}
+              >
+                <h5>See All</h5>
+              </Button>
+            </Link>{" "}
           </Card>
         </Col>
         <Col xs={15} sm={10} lg={8}>
@@ -113,6 +140,19 @@ const Home = () => {
               title="IELTS Teacher"
               description="Finding Experienced teacher or new to teaching IELTS, our tutor will help you guide through the IELTS test and achieve success.."
             />
+            <Link href="/all-tutor?preferClass=IELTS">
+              <Button
+                style={{
+                  backgroundColor: "#fffbbd",
+                  color: "#b3a562",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginTop: "20px",
+                }}
+              >
+                <h5>See All</h5>
+              </Button>
+            </Link>
           </Card>
         </Col>
       </Row>
