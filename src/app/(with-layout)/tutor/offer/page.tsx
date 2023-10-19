@@ -1,11 +1,11 @@
 "use client";
-import AdminAllBookings from "@/components/Bookings/AdminAllBookings";
 import TutorOffer from "@/components/Bookings/TutorOffer";
 import { useTutorOwnProfileQuery } from "@/redux/api/tutorApi";
 import { Card, Empty, Row } from "antd";
 
 const AllBooking = () => {
   const { data, isLoading } = useTutorOwnProfileQuery();
+  console.log(data?.data?.notification?.length);
   return (
     <Card bodyStyle={{ overflow: "hidden", minHeight: "100vh" }}>
       <h4
@@ -28,7 +28,7 @@ const AllBooking = () => {
         align="middle"
         gutter={[10, 24]}
       >
-        {data?.data?.notification !== 0 ? (
+        {data?.data?.notification?.length !== 0 ? (
           data?.data?.notification?.map((booking: any, index: number) => (
             <>
               <TutorOffer data={booking} key={index} />

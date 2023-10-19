@@ -39,22 +39,20 @@ const UserProfile = () => {
                 width: "100%",
               }}
             >
-              <Row>
-                <Col style={{ marginBottom: "20px" }} md={12}>
-                  <p style={{ margin: "10px 0" }}>
-                    <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
-                    {data?.data?.fullName}
-                  </p>
-                  <p style={{ margin: "10px 0" }}>
-                    <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
-                    {data?.data?.email}
-                  </p>
-                  <p style={{ margin: "10px 0" }}>
-                    <span style={{ fontWeight: "bold" }}>Phone Number:</span>{" "}
-                    {data?.data?.phoneNumber}
-                  </p>
-                </Col>
-              </Row>
+              <Card style={{ marginBottom: "20px" }}>
+                <p style={{ margin: "10px 0", fontSize: "15px" }}>
+                  <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
+                  {data?.data?.fullName}
+                </p>
+                <p style={{ margin: "10px 0", fontSize: "15px" }}>
+                  <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
+                  {data?.data?.email}
+                </p>
+                <p style={{ margin: "10px 0", fontSize: "15px" }}>
+                  <span style={{ fontWeight: "bold" }}>Number:</span>{" "}
+                  {data?.data?.phoneNumber}
+                </p>
+              </Card>
               <Row justify="space-around">
                 <Col span={11} lg={6}>
                   <Link href="/user/edit-profile">

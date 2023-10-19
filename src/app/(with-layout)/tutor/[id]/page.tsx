@@ -7,6 +7,7 @@ import { Button, Card, Col, Empty, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useSingleTutorByUserQuery } from "@/redux/api/tutorApi";
+import { addToLocalStorage } from "@/services/cart.service";
 const TutorDetails = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useSingleTutorByUserQuery(params.id);
   return (
@@ -156,6 +157,15 @@ const TutorDetails = ({ params }: { params: { id: string } }) => {
                 color: "#07b318",
                 width: "100%",
               }}
+              onClick={() =>
+                addToLocalStorage(
+                  data?.data?._id,
+                  data?.data?.fullName,
+                  data?.data?.medium,
+                  data?.data?.preferredClass,
+                  data?.data?.expectedMinSalary
+                )
+              }
             >
               <h5>Add to cart</h5>
             </Button>

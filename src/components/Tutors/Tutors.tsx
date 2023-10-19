@@ -6,6 +6,7 @@ import maleTeacher from "../../assets/maleTeacher.png";
 import femaleTeacher from "../../assets/femaleTeacher.png";
 import { useAllTutorsByUserQuery } from "@/redux/api/tutorApi";
 import Link from "next/link";
+import { addToLocalStorage } from "@/services/cart.service";
 
 const AllTutors = () => {
   const { data, isLoading } = useAllTutorsByUserQuery({ page: 1, size: 10 });
@@ -66,6 +67,15 @@ const AllTutors = () => {
                     color: "#07b318",
                     width: "100%",
                   }}
+                  onClick={() =>
+                    addToLocalStorage(
+                      singleData._id,
+                      singleData.fullName,
+                      singleData.medium,
+                      singleData.preferredClass,
+                      singleData.expectedMinSalary
+                    )
+                  }
                 >
                   <h5>Add to cart</h5>
                 </Button>
