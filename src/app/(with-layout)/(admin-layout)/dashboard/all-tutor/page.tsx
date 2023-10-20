@@ -8,8 +8,10 @@ import { useGetAllTutorsByAdminQuery } from "@/redux/api/tutorApi";
 import Link from "next/link";
 import { useDebounced } from "@/redux/hooks";
 import { pageOptions } from "@/constants/golbal";
+import { getUserInfo } from "@/services/auth.service";
 
 const AllTutorsForAdmin = () => {
+  const { role } = getUserInfo() as any;
   const query: Record<string, any> = {};
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [pageNo, setPageNo] = useState<number>(1);
@@ -125,20 +127,21 @@ const AllTutorsForAdmin = () => {
                 {singleData.expectedMinSalary}
               </p>
               <Row justify="space-between">
-                <Col span={11}>
-                  {" "}
-                  <Link href={`/dashboard/update-tutor/${singleData._id}`}>
-                    <Button
-                      style={{
-                        backgroundColor: "#c3ffbd",
-                        color: "#07b318",
-                        width: "100%",
-                      }}
-                    >
-                      <h5>Update</h5>
-                    </Button>
-                  </Link>{" "}
-                </Col>{" "}
+                {role == "admin_user" || (
+                  <Col span={11}>
+                    <Link href={`/dashboard/update-tutor/${singleData._id}`}>
+                      <Button
+                        style={{
+                          backgroundColor: "#c3ffbd",
+                          color: "#07b318",
+                          width: "100%",
+                        }}
+                      >
+                        <h5>Update</h5>
+                      </Button>
+                    </Link>
+                  </Col>
+                )}
                 <Col span={11}>
                   <Link href={`/dashboard/tutor/${singleData._id}`}>
                     {" "}
