@@ -8,8 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGetSingleTutorByAdminQuery } from "@/redux/api/tutorApi";
 const TutorDetails = ({ params }: { params: { id: string } }) => {
-  const { data, isLoading } = useGetSingleTutorByAdminQuery(params.id);
-  console.log(data?.data?.history);
+  const { data } = useGetSingleTutorByAdminQuery(params.id);
   return (
     <div>
       <Card bodyStyle={{ padding: "20px", overflow: "hidden" }}>

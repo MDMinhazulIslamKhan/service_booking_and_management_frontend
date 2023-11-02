@@ -5,7 +5,6 @@ import { Card, Empty, Row } from "antd";
 
 const AllBooking = () => {
   const { data, isLoading } = useTutorOwnProfileQuery();
-  console.log(data?.data?.notification?.length);
   return (
     <Card bodyStyle={{ overflow: "hidden", minHeight: "100vh" }}>
       <h4

@@ -135,7 +135,6 @@ const TutorOffer = (data: any) => {
             }
           } catch (error) {
             message.error("Something went wrong");
-            console.log(error);
             setOpen(false);
           }
         }}

@@ -74,7 +74,7 @@
 
 ## SUPER_ADMIN login info
 
-- phoneNumber : minhaz@gmail.com
+- email : minhaz@gmail.com
 
 - password : 123456
 
