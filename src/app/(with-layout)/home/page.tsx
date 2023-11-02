@@ -9,6 +9,11 @@ import Meta from "antd/es/card/Meta";
 import AllTutors from "@/components/Tutors/Tutors";
 import Feedback from "@/components/Feedback/Feedback";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Tutor | Home",
+};
 
 const Home = () => {
   return (
@@ -26,7 +31,7 @@ const Home = () => {
       <h4
         style={{
           textAlign: "center",
-          fontSize: "25px",
+          fontSize: "22px",
           margin: "20px 0",
         }}
       >
@@ -48,7 +53,9 @@ const Home = () => {
         style={{
           textAlign: "center",
           fontSize: "30px",
-          margin: "20px 0 5px",
+          padding: "5px 0",
+          fontWeight: "bold",
+          margin: "20px 0 10px",
           backgroundColor: "white",
         }}
       >
@@ -88,7 +95,7 @@ const Home = () => {
               >
                 <h5>See All</h5>
               </Button>
-            </Link>{" "}
+            </Link>
           </Card>
         </Col>
         <Col xs={15} sm={10} lg={8}>
@@ -160,7 +167,9 @@ const Home = () => {
         style={{
           textAlign: "center",
           fontSize: "30px",
-          margin: "20px 0 5px",
+          padding: "5px 0",
+          fontWeight: "bold",
+          margin: "20px 0 10px",
           backgroundColor: "white",
         }}
       >
@@ -171,7 +180,9 @@ const Home = () => {
         style={{
           textAlign: "center",
           fontSize: "30px",
-          margin: "20px 0 5px",
+          padding: "5px 0",
+          fontWeight: "bold",
+          margin: "20px 0 10px",
           backgroundColor: "white",
         }}
       >

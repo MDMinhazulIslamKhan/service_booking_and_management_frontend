@@ -31,9 +31,9 @@ export const addToLocalStorage = (
     if (selectedTutor) {
       message.info(`You already add ${name} on your cart.`);
     } else {
+      message.success(`Added ${name} on your cart successfully....`);
       addedAllTutorOnCard.push(tutor);
       localStorage.setItem("tutor", JSON.stringify(addedAllTutorOnCard));
-      message.success(`Added ${name} on your cart successfully....`);
     }
   } else {
     localStorage.setItem("tutor", JSON.stringify([tutor]));

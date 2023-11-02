@@ -87,16 +87,7 @@ const Cart = () => {
           />
         )}
       </Row>
-      <h3
-        style={{
-          textAlign: "center",
-          fontSize: "20px",
-          margin: "100px 0 0 0",
-          backgroundColor: "white",
-        }}
-      >
-        Give Us Your Feedback
-      </h3>
+
       <div
         style={{
           padding: "50px 0",
@@ -106,14 +97,15 @@ const Cart = () => {
       >
         <Card bodyStyle={{ padding: "0 20px", overflow: "hidden" }}>
           <Form submitHandler={onSubmit} resolver={yupResolver(feedbackSchema)}>
-            <h1
+            <h3
               style={{
                 margin: "0 0 15px 0px",
                 textAlign: "center",
+                padding: "10px 0 0 0",
               }}
             >
               Your Feedback
-            </h1>
+            </h3>
             <div style={{ margin: "5px 0" }}>
               <FormTextArea name="feedback" label="Feedback" />
             </div>

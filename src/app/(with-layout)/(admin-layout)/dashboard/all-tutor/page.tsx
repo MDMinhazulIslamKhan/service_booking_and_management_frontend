@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Input, Row, Select } from "antd";
+import { Button, Card, Col, Empty, Input, Row, Select } from "antd";
 import Image from "next/image";
 import maleTeacher from "../../../../../assets/maleTeacher.png";
 import femaleTeacher from "../../../../../assets/femaleTeacher.png";
@@ -82,85 +82,93 @@ const AllTutorsForAdmin = () => {
         style={{ backgroundColor: "white", padding: "20px 30px 20px 20px" }}
         align="middle"
       >
-        {data?.data?.data?.map((singleData: any, index: number) => (
-          <Col key={index} md={15} lg={8}>
-            <Card
-              hoverable
-              style={{ width: 240, margin: "0 auto 15px auto" }}
-              cover={
-                <Image
-                  alt="tutorImage"
-                  src={
-                    singleData.gender == "male" ? maleTeacher : femaleTeacher
-                  }
-                  width={200}
-                  height={200}
-                />
-              }
-            >
-              <h2
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
+        {data?.data?.data.length !== 0 ? (
+          data?.data?.data?.map((singleData: any, index: number) => (
+            <Col key={index} md={15} lg={8}>
+              <Card
+                hoverable
+                style={{ width: 240, margin: "0 auto 15px auto" }}
+                cover={
+                  <Image
+                    alt="tutorImage"
+                    src={
+                      singleData.gender == "male" ? maleTeacher : femaleTeacher
+                    }
+                    width={200}
+                    height={200}
+                  />
+                }
               >
-                {singleData.fullName}
-              </h2>
-              <p style={{ margin: "10px 0" }}>
-                <span style={{ fontWeight: "bold" }}>Institution:</span>{" "}
-                {singleData.institution}
-              </p>
-              <p style={{ margin: "10px 0" }}>
-                <span style={{ fontWeight: "bold" }}>Medium:</span>{" "}
-                {singleData.medium}
-              </p>
-              <p style={{ margin: "10px 0" }}>
-                <span style={{ fontWeight: "bold" }}>Preferred Subject:</span>{" "}
-                {singleData.preferredSubject}
-              </p>
-              <p style={{ margin: "10px 0" }}>
-                <span style={{ fontWeight: "bold" }}>Preferred Class:</span>{" "}
-                {singleData.preferredClass}
-              </p>
-              <p style={{ margin: "10px 0" }}>
-                <span style={{ fontWeight: "bold" }}>Expected Salary:</span>{" "}
-                {singleData.expectedMinSalary}
-              </p>
-              <Row justify="space-between">
-                {role == "admin_user" || (
+                <h2
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {singleData.fullName}
+                </h2>
+                <p style={{ margin: "10px 0" }}>
+                  <span style={{ fontWeight: "bold" }}>Institution:</span>{" "}
+                  {singleData.institution}
+                </p>
+                <p style={{ margin: "10px 0" }}>
+                  <span style={{ fontWeight: "bold" }}>Medium:</span>{" "}
+                  {singleData.medium}
+                </p>
+                <p style={{ margin: "10px 0" }}>
+                  <span style={{ fontWeight: "bold" }}>Preferred Subject:</span>{" "}
+                  {singleData.preferredSubject}
+                </p>
+                <p style={{ margin: "10px 0" }}>
+                  <span style={{ fontWeight: "bold" }}>Preferred Class:</span>{" "}
+                  {singleData.preferredClass}
+                </p>
+                <p style={{ margin: "10px 0" }}>
+                  <span style={{ fontWeight: "bold" }}>Expected Salary:</span>{" "}
+                  {singleData.expectedMinSalary}
+                </p>
+                <Row justify="space-between">
+                  {role == "admin_user" || (
+                    <Col span={11}>
+                      <Link href={`/dashboard/update-tutor/${singleData._id}`}>
+                        <Button
+                          style={{
+                            backgroundColor: "#c3ffbd",
+                            color: "#07b318",
+                            width: "100%",
+                          }}
+                        >
+                          <h5>Update</h5>
+                        </Button>
+                      </Link>
+                    </Col>
+                  )}
                   <Col span={11}>
-                    <Link href={`/dashboard/update-tutor/${singleData._id}`}>
-                      <Button
-                        style={{
-                          backgroundColor: "#c3ffbd",
-                          color: "#07b318",
-                          width: "100%",
-                        }}
-                      >
-                        <h5>Update</h5>
-                      </Button>
-                    </Link>
+                    {role != "admin_user" && (
+                      <Link href={`/dashboard/tutor/${singleData._id}`}>
+                        <Button
+                          style={{
+                            backgroundColor: "#fffbbd",
+                            color: "#edd874",
+                            fontWeight: "bold",
+                            width: "100%",
+                          }}
+                        >
+                          Details
+                        </Button>
+                      </Link>
+                    )}
                   </Col>
-                )}
-                <Col span={11}>
-                  <Link href={`/dashboard/tutor/${singleData._id}`}>
-                    {" "}
-                    <Button
-                      style={{
-                        backgroundColor: "#fffbbd",
-                        color: "#edd874",
-                        fontWeight: "bold",
-                        width: "100%",
-                      }}
-                    >
-                      Details
-                    </Button>
-                  </Link>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-        ))}
+                </Row>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            style={{ margin: "50px auto" }}
+          />
+        )}
       </Row>
       <div
         style={{

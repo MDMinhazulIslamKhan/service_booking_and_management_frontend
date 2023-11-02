@@ -1,6 +1,10 @@
 import React from "react";
 import { Card } from "antd";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "My Tutor | About Us",
+};
 const About = () => {
   return (
     <div>
@@ -51,9 +55,11 @@ const About = () => {
                   <li>TypeScript</li>
                   <li>Node.Js | Express.js</li>
                   <li>NoSQL Database (Mongodb,Mongoose)</li>
-                  <li>MySQL Database</li>
+                  <li>Relational Database(PostgreSQL)</li>
+                  <li>Prisma ORM</li>
                   <li>React.Js</li>
                   <li>Next.Js</li>
+                  <li>Redux</li>
                 </ul>
               </div>
             </div>

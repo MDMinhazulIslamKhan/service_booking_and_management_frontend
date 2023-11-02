@@ -248,6 +248,7 @@ const AllTutorsForAdmin = ({ searchParams }: any) => {
           backgroundColor: "white",
           color: "#b3a562",
           display: "flex",
+          width: "100%",
           justifyContent: "center",
           alignItems: "center",
           padding: "0 0 10px 0",

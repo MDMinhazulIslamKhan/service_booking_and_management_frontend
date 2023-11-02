@@ -1,7 +1,10 @@
+import { getUserInfo } from "@/services/auth.service";
 import { Button, Card, Col, Row, message } from "antd";
 import Link from "next/link";
 
 const AdminAllBookings = (data: any) => {
+  const { role } = getUserInfo() as any;
+
   return (
     <Card
       hoverable
@@ -78,19 +81,35 @@ const AdminAllBookings = (data: any) => {
           </Link>
         </Col>
         <Col span={12}>
-          <Link href={`/dashboard/tutor/${data?.data?.tutorId?._id}`}>
-            <Button
-              style={{
-                backgroundColor: "#c3ffbd",
-                color: "#07b318",
-                fontWeight: "bold",
-                width: "100%",
-                padding: "0",
-              }}
-            >
-              Tutor
-            </Button>
-          </Link>
+          {role == "admin_user" ? (
+            <Link href={`/tutor/${data?.data?.tutorId?._id}`}>
+              <Button
+                style={{
+                  backgroundColor: "#c3ffbd",
+                  color: "#07b318",
+                  fontWeight: "bold",
+                  width: "100%",
+                  padding: "0",
+                }}
+              >
+                Tutor
+              </Button>
+            </Link>
+          ) : (
+            <Link href={`/dashboard/tutor/${data?.data?.tutorId?._id}`}>
+              <Button
+                style={{
+                  backgroundColor: "#c3ffbd",
+                  color: "#07b318",
+                  fontWeight: "bold",
+                  width: "100%",
+                  padding: "0",
+                }}
+              >
+                Tutor
+              </Button>
+            </Link>
+          )}
         </Col>
       </Row>
     </Card>

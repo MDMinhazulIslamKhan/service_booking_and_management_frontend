@@ -2,7 +2,7 @@ import TutorRegistration from "@/components/LoginAndRegistration/TutorRegistrati
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Tutor | Registration Tutor",
+  title: "My Tutor | Tutor Registration",
 };
 
 const Login = () => {
