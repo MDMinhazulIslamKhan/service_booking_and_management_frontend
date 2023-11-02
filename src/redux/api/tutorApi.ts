@@ -76,7 +76,7 @@ export const tutorApi: any = baseApi.injectEndpoints({
     reviewTutor: build.mutation({
       query: (data) => ({
         url: `${TUTOR_URL}/review/${data.id}`,
-        method: "PATCH",
+        method: "POST",
         data: data.body,
       }),
       invalidatesTags: [tagTypes.tutor],
